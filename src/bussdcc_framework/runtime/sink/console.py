@@ -15,25 +15,20 @@ class ConsoleSink(EventSinkProtocol):
     def stop(self) -> None:
         pass
 
-    def handle(self, evt: Event[object]) -> None:
+    def handle(self, evt: Event[EventSchema]) -> None:
         if not evt.time:
-            return
-
-        payload = evt.payload
-        if not isinstance(payload, EventSchema):
-            print("Invalid event", payload)
             return
 
         record = {
             "time": evt.time.isoformat(),
-            "name": payload.name,
+            "name": evt.payload.name,
             "data": self.transform(evt),
         }
 
         line = json.dumps(record, separators=(",", ":"))
         print(line)
 
-    def transform(self, evt: Event[object]) -> Any:
+    def transform(self, evt: Event[EventSchema]) -> Any:
         """
         Override to customize JSON output.
 

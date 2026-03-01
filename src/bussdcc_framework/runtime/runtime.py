@@ -3,6 +3,7 @@ from typing import Optional
 
 from bussdcc.runtime import SignalRuntime
 from bussdcc.event import Event
+from bussdcc.events import EventSchema
 
 from bussdcc_framework import events, __version__ as version
 
@@ -20,7 +21,7 @@ class Runtime(SignalRuntime):
         super().boot()
         self.ctx.emit(events.FrameworkBooted(version=version))
 
-    def _dispatch(self, evt: Event[object]) -> None:
+    def _dispatch(self, evt: Event[EventSchema]) -> None:
         for sink in self._sinks:
             try:
                 sink.handle(evt)

@@ -32,13 +32,8 @@ class JsonlSink(EventSinkProtocol):
             self._file.close()
             self._file = None
 
-    def handle(self, evt: Event[object]) -> None:
+    def handle(self, evt: Event[EventSchema]) -> None:
         if not evt.time:
-            return
-
-        payload = evt.payload
-        if not isinstance(payload, EventSchema):
-            print("Invalid event", payload)
             return
 
         segment_start = self._segment_start(evt.time)
@@ -49,7 +44,7 @@ class JsonlSink(EventSinkProtocol):
 
             record = {
                 "time": evt.time.isoformat(),
-                "name": payload.name,
+                "name": evt.payload.name,
                 "data": self.transform(evt),
             }
 
@@ -57,7 +52,7 @@ class JsonlSink(EventSinkProtocol):
             assert self._file is not None
             self._file.write(line + "\n")
 
-    def transform(self, evt: Event[object]) -> Any:
+    def transform(self, evt: Event[EventSchema]) -> Any:
         """
         Override to customize JSON output.
 
