@@ -1,11 +1,11 @@
 from typing import Optional
 from dataclasses import dataclass
 
-from bussdcc.events import EventSchema
+from bussdcc.message import Message
 
 
 @dataclass(slots=True)
-class SystemIdentityEvent(EventSchema):
+class SystemIdentityEvent(Message):
     name = "system.identity"
 
     hostname: str

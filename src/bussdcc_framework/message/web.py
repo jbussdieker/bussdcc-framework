@@ -1,10 +1,10 @@
 from dataclasses import dataclass
 
-from bussdcc.events import EventSchema
+from bussdcc.message import Message
 
 
 @dataclass(slots=True)
-class WebInterfaceStarted(EventSchema):
+class WebInterfaceStarted(Message):
     name = "interface.web.started"
 
     host: str

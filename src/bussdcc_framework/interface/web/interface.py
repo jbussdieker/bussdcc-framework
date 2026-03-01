@@ -6,7 +6,7 @@ from bussdcc.process import Process
 from bussdcc.context import ContextProtocol
 from bussdcc.event import Event
 
-from bussdcc_framework import events
+from bussdcc_framework import message
 
 from werkzeug.serving import make_server
 from flask_socketio import SocketIO
@@ -54,7 +54,7 @@ class WebInterface(Process):
             daemon=True,
         )
         self._thread.start()
-        ctx.emit(events.WebInterfaceStarted(host=self.host, port=self.port))
+        ctx.emit(message.WebInterfaceStarted(host=self.host, port=self.port))
 
     def _run(self) -> None:
         self._server = make_server(

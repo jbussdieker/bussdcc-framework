@@ -2,14 +2,14 @@ from typing import Optional
 from dataclasses import dataclass
 
 from bussdcc.event import Event
-from bussdcc.events import EventSchema, EventLevel
+from bussdcc.message import Message, EventLevel
 
 
 @dataclass(slots=True)
-class SinkHandlerError(EventSchema):
+class SinkHandlerError(Message):
     name = "sink.handler.error"
     level = EventLevel.ERROR
 
     error: str
-    evt: Event[EventSchema] | None = None
+    evt: Event[Message] | None = None
     traceback: str | None = None

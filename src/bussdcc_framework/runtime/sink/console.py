@@ -2,7 +2,7 @@ from typing import Any
 import json
 
 from bussdcc.event import Event
-from bussdcc.events import EventSchema
+from bussdcc.message import Message
 from bussdcc.context import ContextProtocol
 
 from .protocol import EventSinkProtocol
@@ -15,7 +15,7 @@ class ConsoleSink(EventSinkProtocol):
     def stop(self) -> None:
         pass
 
-    def handle(self, evt: Event[EventSchema]) -> None:
+    def handle(self, evt: Event[Message]) -> None:
         if not evt.time:
             return
 
@@ -28,7 +28,7 @@ class ConsoleSink(EventSinkProtocol):
         line = json.dumps(record, separators=(",", ":"))
         print(line)
 
-    def transform(self, evt: Event[EventSchema]) -> Any:
+    def transform(self, evt: Event[Message]) -> Any:
         """
         Override to customize JSON output.
 

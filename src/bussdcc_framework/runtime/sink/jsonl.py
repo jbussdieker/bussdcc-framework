@@ -5,7 +5,7 @@ from datetime import datetime, timezone, timedelta
 from typing import Any, TextIO
 
 from bussdcc.event import Event
-from bussdcc.events import EventSchema
+from bussdcc.message import Message
 from bussdcc.context import ContextProtocol
 
 from .protocol import EventSinkProtocol
@@ -32,7 +32,7 @@ class JsonlSink(EventSinkProtocol):
             self._file.close()
             self._file = None
 
-    def handle(self, evt: Event[EventSchema]) -> None:
+    def handle(self, evt: Event[Message]) -> None:
         if not evt.time:
             return
 
@@ -52,7 +52,7 @@ class JsonlSink(EventSinkProtocol):
             assert self._file is not None
             self._file.write(line + "\n")
 
-    def transform(self, evt: Event[EventSchema]) -> Any:
+    def transform(self, evt: Event[Message]) -> Any:
         """
         Override to customize JSON output.
 

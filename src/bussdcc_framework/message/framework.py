@@ -1,18 +1,18 @@
 from typing import Optional
 from dataclasses import dataclass
 
-from bussdcc.events import EventSchema
+from bussdcc.message import Message
 
 
 @dataclass(slots=True)
-class FrameworkBooted(EventSchema):
+class FrameworkBooted(Message):
     name = "framework.booted"
 
     version: str
 
 
 @dataclass(slots=True)
-class FrameworkShuttingDown(EventSchema):
+class FrameworkShuttingDown(Message):
     name = "framework.shutting_down"
 
     version: str
