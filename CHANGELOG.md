@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.2](https://github.com/jbussdieker/bussdcc-framework/compare/v0.2.1...v0.2.2) (2026-03-01)
+
+
+### Bug Fixes
+
+* **web:** update context processor and remove abstract methods ([8825418](https://github.com/jbussdieker/bussdcc-framework/commit/882541877ccc0e905af1ea205fef45fe1571e37e))
+
 ## [0.2.1](https://github.com/jbussdieker/bussdcc-framework/compare/v0.2.0...v0.2.1) (2026-03-01)
 
 
