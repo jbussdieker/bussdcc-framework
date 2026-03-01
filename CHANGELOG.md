@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.2.2...v0.3.0) (2026-03-01)
+
+
+### Features
+
+* **bussdcc_framework:** update event handling and dependencies ([20ec215](https://github.com/jbussdieker/bussdcc-framework/commit/20ec2159b167c1cfeef15c05a4d6754396203958))
+
 ## [0.2.2](https://github.com/jbussdieker/bussdcc-framework/compare/v0.2.1...v0.2.2) (2026-03-01)
 
 
