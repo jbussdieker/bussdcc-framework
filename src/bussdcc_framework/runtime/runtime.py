@@ -5,7 +5,7 @@ from bussdcc.runtime import SignalRuntime
 from bussdcc.event import Event
 from bussdcc.message import Message
 
-from bussdcc_framework import events, __version__ as version
+from bussdcc_framework import message, __version__ as version
 
 from .sink import EventSinkProtocol
 
@@ -19,7 +19,7 @@ class Runtime(SignalRuntime):
         for sink in self._sinks:
             sink.start(self.ctx)
         super().boot()
-        self.ctx.emit(events.FrameworkBooted(version=version))
+        self.ctx.emit(message.FrameworkBooted(version=version))
 
     def _dispatch(self, evt: Event[Message]) -> None:
         for sink in self._sinks:
@@ -28,10 +28,10 @@ class Runtime(SignalRuntime):
             except Exception as e:
                 print(repr(e))
                 print(traceback.format_exc())
-                # TODO: self.ctx.emit(events.SinkHandlerError())
+                # TODO: self.ctx.emit(message.SinkHandlerError())
 
     def shutdown(self, reason: Optional[str] = None) -> None:
-        self.ctx.emit(events.FrameworkShuttingDown(version=version, reason=reason))
+        self.ctx.emit(message.FrameworkShuttingDown(version=version, reason=reason))
         super().shutdown(reason)
 
     def add_sink(self, sink: EventSinkProtocol) -> None:
