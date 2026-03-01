@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Optional, TypedDict
 
 from flask import render_template
 from flask_socketio import SocketIO
@@ -9,8 +9,27 @@ from bussdcc.context import ContextProtocol
 from .base import FlaskApp
 
 
-def create_app(ctx: ContextProtocol) -> FlaskApp:
-    app = FlaskApp(__name__)
+class FlaskAppKwargs(TypedDict, total=False):
+    template_folder: str
+    static_folder: str
+
+
+def create_app(
+    ctx: ContextProtocol,
+    import_name: str,
+    template_folder: Optional[str] = None,
+    static_folder: Optional[str] = None,
+) -> FlaskApp:
+    kwargs: FlaskAppKwargs = {}
+
+    if template_folder is not None:
+        kwargs["template_folder"] = template_folder
+
+    if static_folder is not None:
+        kwargs["static_folder"] = static_folder
+
+    app = FlaskApp(import_name, **kwargs)
+
     Bootstrap5(app)
     socketio = SocketIO(app, cors_allowed_origins="*", async_mode="threading")
 
@@ -30,9 +49,5 @@ def create_app(ctx: ContextProtocol) -> FlaskApp:
             system_identity=system_identity,
             runtime_version=runtime_version,
         )
-
-    @app.route("/")
-    def home() -> str:
-        return render_template("home.html")
 
     return app
