@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.3.0...v0.4.0) (2026-03-01)
+
+
+### Features
+
+* **bussdcc_framework:** rename events to message and update dependencies ([d98f33c](https://github.com/jbussdieker/bussdcc-framework/commit/d98f33c02140179a8e3f206867c293d07ea91058))
+
 ## [0.3.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.2.2...v0.3.0) (2026-03-01)
 
 
