@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.1](https://github.com/jbussdieker/bussdcc-framework/compare/v0.2.0...v0.2.1) (2026-03-01)
+
+
+### Bug Fixes
+
+* **bussdcc_framework:** add py.typed file ([93501a4](https://github.com/jbussdieker/bussdcc-framework/commit/93501a40be3b83383036ef0606bf9f19586b12a9))
+
 ## [0.2.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.1.0...v0.2.0) (2026-03-01)
 
 
