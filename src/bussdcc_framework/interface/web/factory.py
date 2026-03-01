@@ -38,16 +38,14 @@ def create_app(
 
     @app.context_processor
     def get_context() -> dict[str, Any]:
-        app_name = ctx.state.get("app.name")
-        app_version = ctx.state.get("app.version")
-        system_identity = ctx.state.get("system.identity")
         runtime_version = ctx.state.get("runtime.version")
+        framework_version = ctx.state.get("framework.version")
+        system_identity = ctx.state.get("system.identity")
 
         return dict(
-            app_name=app_name,
-            app_version=app_version,
-            system_identity=system_identity,
             runtime_version=runtime_version,
+            framework_version=framework_version,
+            system_identity=system_identity,
         )
 
     return app

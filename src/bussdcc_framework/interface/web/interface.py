@@ -33,11 +33,11 @@ class WebInterface(Process):
         self.port = port
         self._thread: threading.Thread | None = None
 
-    @abstractmethod
-    def register_routes(self, app: FlaskApp, ctx: ContextProtocol) -> None: ...
+    def register_routes(self, app: FlaskApp, ctx: ContextProtocol) -> None:
+        pass
 
-    @abstractmethod
-    def register_socketio(self, socketio: SocketIO, ctx: ContextProtocol) -> None: ...
+    def register_socketio(self, socketio: SocketIO, ctx: ContextProtocol) -> None:
+        pass
 
     def start(self, ctx: ContextProtocol) -> None:
         self.app = create_app(
