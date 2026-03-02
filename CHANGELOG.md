@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.4.0...v0.5.0) (2026-03-02)
+
+
+### Features
+
+* **web:** add context management and message emission ([af8caab](https://github.com/jbussdieker/bussdcc-framework/commit/af8caab488d6e206520e1ec518f6a7ddf744848d))
+
 ## [0.4.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.3.0...v0.4.0) (2026-03-01)
 
 
