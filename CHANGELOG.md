@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.1](https://github.com/jbussdieker/bussdcc-framework/compare/v0.5.0...v0.5.1) (2026-03-02)
+
+
+### Bug Fixes
+
+* **web:** import `emit` function from the `context` module ([e86318d](https://github.com/jbussdieker/bussdcc-framework/commit/e86318d94fde86010f836d0551e56715d9bf9a20))
+
 ## [0.5.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.4.0...v0.5.0) (2026-03-02)
 
 
