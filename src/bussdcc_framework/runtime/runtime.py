@@ -3,9 +3,9 @@ from typing import Optional
 
 from bussdcc.runtime import SignalRuntime
 from bussdcc.event import Event
-from bussdcc.message import Message, EventLevel
+from bussdcc.message import Message, Severity
 
-from bussdcc_framework import message, __version__ as version
+from .. import message, __version__ as version
 
 from .sink import EventSinkProtocol
 
@@ -13,12 +13,15 @@ from .sink import EventSinkProtocol
 class Runtime(SignalRuntime):
     def __init__(self) -> None:
         super().__init__()
+
         self._sinks: list[EventSinkProtocol] = []
 
     def boot(self) -> None:
         for sink in self._sinks:
             sink.start(self.ctx)
+
         super().boot()
+
         self.ctx.emit(message.FrameworkBooted(version=version))
 
     def _dispatch(self, evt: Event[Message]) -> None:
@@ -26,7 +29,7 @@ class Runtime(SignalRuntime):
             try:
                 sink.handle(evt)
             except Exception as e:
-                if evt.payload.level >= EventLevel.ERROR:
+                if evt.payload.severity >= Severity.ERROR:
                     continue
 
                 self.ctx.emit(
@@ -38,8 +41,11 @@ class Runtime(SignalRuntime):
                     )
                 )
 
+        super()._dispatch(evt)
+
     def shutdown(self, reason: Optional[str] = None) -> None:
         self.ctx.emit(message.FrameworkShuttingDown(version=version, reason=reason))
+
         super().shutdown(reason)
 
     def add_sink(self, sink: EventSinkProtocol) -> None:

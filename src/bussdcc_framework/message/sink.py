@@ -2,13 +2,13 @@ from typing import Optional
 from dataclasses import dataclass
 
 from bussdcc.event import Event
-from bussdcc.message import Message, EventLevel
+from bussdcc.message import Message, Severity
 
 
 @dataclass(slots=True, frozen=True)
 class SinkHandlerError(Message):
     name = "sink.handler.error"
-    level = EventLevel.ERROR
+    severity = Severity.ERROR
 
     sink: str
     error: str
