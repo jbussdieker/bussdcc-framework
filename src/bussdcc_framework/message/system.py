@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from bussdcc.message import Message
 
 
-@dataclass(slots=True)
+@dataclass(slots=True, frozen=True)
 class SystemIdentityEvent(Message):
     name = "system.identity"
 

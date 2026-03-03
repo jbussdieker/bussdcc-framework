@@ -4,7 +4,7 @@ dynamic = [
     "version",
 ]
 dependencies = [
-    "bussdcc==0.26.0",
+    "bussdcc==0.27.0",
     "flask>=3.1",
     "flask-socketio>=5.6",
     "bootstrap-flask==2.5.0",
@@ -21,6 +21,8 @@ maintainers = [
 classifiers = [
     "Topic :: Software Development :: Libraries :: Python Modules",
     "Development Status :: 2 - Pre-Alpha",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
     "Operating System :: OS Independent",
     "Environment :: Console",

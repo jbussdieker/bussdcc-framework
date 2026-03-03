@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from bussdcc.message import Message
 
 
-@dataclass(slots=True)
+@dataclass(slots=True, frozen=True)
 class WebInterfaceStarted(Message):
     name = "interface.web.started"
 

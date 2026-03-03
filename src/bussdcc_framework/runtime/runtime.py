@@ -3,7 +3,7 @@ from typing import Optional
 
 from bussdcc.runtime import SignalRuntime
 from bussdcc.event import Event
-from bussdcc.message import Message
+from bussdcc.message import Message, EventLevel
 
 from bussdcc_framework import message, __version__ as version
 
@@ -26,9 +26,17 @@ class Runtime(SignalRuntime):
             try:
                 sink.handle(evt)
             except Exception as e:
-                print(repr(e))
-                print(traceback.format_exc())
-                # TODO: self.ctx.emit(message.SinkHandlerError())
+                if evt.payload.level >= EventLevel.ERROR:
+                    continue
+
+                self.ctx.emit(
+                    message.SinkHandlerError(
+                        sink=type(sink).__name__,
+                        error=repr(e),
+                        evt=evt,
+                        traceback=traceback.format_exc(),
+                    )
+                )
 
     def shutdown(self, reason: Optional[str] = None) -> None:
         self.ctx.emit(message.FrameworkShuttingDown(version=version, reason=reason))
