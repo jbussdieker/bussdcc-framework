@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.5.1...v0.6.0) (2026-03-03)
+
+
+### Features
+
+* **message:** enhance message handling and update dependencies ([a9d8ac7](https://github.com/jbussdieker/bussdcc-framework/commit/a9d8ac7ae22c308e5599d8ffd3db961554192777))
+
 ## [0.5.1](https://github.com/jbussdieker/bussdcc-framework/compare/v0.5.0...v0.5.1) (2026-03-02)
 
 
