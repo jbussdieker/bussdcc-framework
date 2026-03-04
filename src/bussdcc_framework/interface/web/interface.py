@@ -67,8 +67,9 @@ class WebInterface(Process):
         self._server.serve_forever()
 
     def stop(self, ctx: ContextProtocol) -> None:
-        if hasattr(self, "_server"):
-            self._server.shutdown()
+        server = getattr(self, "_server", None)
+        if server:
+            server.shutdown()
 
         if self._thread:
             self._thread.join(timeout=5)

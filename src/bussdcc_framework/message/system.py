@@ -6,8 +6,6 @@ from bussdcc.message import Message
 
 @dataclass(slots=True, frozen=True)
 class SystemIdentityEvent(Message):
-    name = "system.identity"
-
     hostname: str
     model: Optional[str]
     serial: Optional[str]

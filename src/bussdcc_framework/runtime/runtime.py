@@ -46,7 +46,14 @@ class Runtime(SignalRuntime):
     def shutdown(self, reason: Optional[str] = None) -> None:
         self.ctx.emit(message.FrameworkShuttingDown(version=version, reason=reason))
 
-        super().shutdown(reason)
+        try:
+            super().shutdown(reason)
+        finally:
+            for sink in self._sinks:
+                try:
+                    sink.stop()
+                except Exception:
+                    pass
 
     def add_sink(self, sink: EventSinkProtocol) -> None:
         if self._booted:

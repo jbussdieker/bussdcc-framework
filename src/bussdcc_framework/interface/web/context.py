@@ -7,7 +7,8 @@ from .base import FlaskApp
 
 
 def current_ctx() -> ContextProtocol:
-    assert isinstance(current_app, FlaskApp)
+    if not isinstance(current_app, FlaskApp):
+        raise RuntimeError("Not inside FlaskApp context")
     return current_app.ctx
 
 

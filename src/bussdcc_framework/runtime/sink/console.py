@@ -21,7 +21,7 @@ class ConsoleSink(EventSinkProtocol):
 
         record = {
             "time": evt.time.isoformat(),
-            "name": evt.payload.name,
+            "key": Message.key_for(evt.payload),
             "data": self.transform(evt),
         }
 
@@ -35,5 +35,4 @@ class ConsoleSink(EventSinkProtocol):
         Must return a JSON-serializable dict.
         Should not mutate evt.
         """
-        if hasattr(evt.payload, "to_dict"):
-            return evt.payload.to_dict()
+        return evt.payload.to_dict() if hasattr(evt.payload, "to_dict") else {}

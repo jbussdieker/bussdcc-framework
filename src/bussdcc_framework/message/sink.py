@@ -7,7 +7,6 @@ from bussdcc.message import Message, Severity
 
 @dataclass(slots=True, frozen=True)
 class SinkHandlerError(Message):
-    name = "sink.handler.error"
     severity = Severity.ERROR
 
     sink: str
