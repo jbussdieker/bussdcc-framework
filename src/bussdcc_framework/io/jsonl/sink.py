@@ -4,11 +4,10 @@ from pathlib import Path
 from datetime import datetime, timezone, timedelta
 from typing import Any, TextIO
 
+from bussdcc.io import EventSinkProtocol
 from bussdcc.event import Event
 from bussdcc.message import Message
 from bussdcc.context import ContextProtocol
-
-from .protocol import EventSinkProtocol
 
 
 class JsonlSink(EventSinkProtocol):

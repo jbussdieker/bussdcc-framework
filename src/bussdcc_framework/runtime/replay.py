@@ -2,12 +2,11 @@ import traceback
 from typing import Optional
 
 from bussdcc.runtime.replay import ReplayRuntime as Base
+from bussdcc.io import EventSinkProtocol
 from bussdcc.event import Event
 from bussdcc.message import Message, Severity
 
 from .. import message, __version__ as version
-
-from .sink import EventSinkProtocol
 
 
 class ReplayRuntime(Base):

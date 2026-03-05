@@ -4,8 +4,7 @@ import json
 from bussdcc.event import Event
 from bussdcc.message import Message
 from bussdcc.context import ContextProtocol
-
-from .protocol import EventSinkProtocol
+from bussdcc.io import EventSinkProtocol
 
 
 class ConsoleSink(EventSinkProtocol):
