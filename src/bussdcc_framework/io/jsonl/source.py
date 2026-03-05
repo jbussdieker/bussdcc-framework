@@ -14,7 +14,7 @@ class JsonlSource(EventSourceProtocol):
         self.root = Path(root)
         self.start_at = None
 
-    def events(self) -> Iterable[Event[Message]]:
+    def __iter__(self) -> Iterable[Event[Message]]:
         files = sorted(self.root.rglob("*.jsonl"))
         for file in files:
             with file.open() as f:
