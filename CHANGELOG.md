@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.10.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.9.0...v0.10.0) (2026-03-05)
+
+
+### Features
+
+* **io:** add JsonlSource and reorganize sink and source modules ([d5d79f3](https://github.com/jbussdieker/bussdcc-framework/commit/d5d79f38ffd9714ec8048579ef2b22fc5cf07b46))
+* **runtime:** add ReplayRuntime class for event handling ([aabc218](https://github.com/jbussdieker/bussdcc-framework/commit/aabc2181a5508d6d1ea4d6530ad139eb08a8204d))
+
 ## [0.9.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.8.0...v0.9.0) (2026-03-04)
 
 
