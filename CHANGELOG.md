@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.11.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.10.1...v0.11.0) (2026-03-05)
+
+
+### Features
+
+* **runtime:** enhance initialization with additional protocols ([697e529](https://github.com/jbussdieker/bussdcc-framework/commit/697e5292916607014d55a8fa00e899c3b2fab963))
+
 ## [0.10.1](https://github.com/jbussdieker/bussdcc-framework/compare/v0.10.0...v0.10.1) (2026-03-05)
 
 
