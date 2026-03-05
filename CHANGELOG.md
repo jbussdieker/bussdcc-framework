@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.10.1](https://github.com/jbussdieker/bussdcc-framework/compare/v0.10.0...v0.10.1) (2026-03-05)
+
+
+### Bug Fixes
+
+* **io:** update JsonlSource iterator return type ([ad1a367](https://github.com/jbussdieker/bussdcc-framework/commit/ad1a3678ea4fa6a325675143f99cfb13a6771666))
+* **io:** update JsonlSource to use __iter__ for event iteration ([91d4937](https://github.com/jbussdieker/bussdcc-framework/commit/91d4937a9ee17cd3c045f87909b6978564f46afd))
+
 ## [0.10.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.9.0...v0.10.0) (2026-03-05)
 
 
