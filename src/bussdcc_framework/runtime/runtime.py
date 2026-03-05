@@ -2,16 +2,24 @@ import traceback
 from typing import Optional
 
 from bussdcc.runtime import SignalRuntime
+from bussdcc.clock import ClockProtocol
 from bussdcc.io import EventSinkProtocol
-from bussdcc.event import Event
+from bussdcc.state import StateStoreProtocol
+from bussdcc.event import Event, EventBusProtocol
 from bussdcc.message import Message, Severity
 
 from .. import message, __version__ as version
 
 
 class Runtime(SignalRuntime):
-    def __init__(self) -> None:
-        super().__init__()
+    def __init__(
+        self,
+        *,
+        clock: Optional[ClockProtocol] = None,
+        events: EventBusProtocol | None = None,
+        state: StateStoreProtocol | None = None,
+    ):
+        super().__init__(clock=clock, events=events, state=state)
 
         self._sinks: list[EventSinkProtocol] = []
 

@@ -1,18 +1,30 @@
 import traceback
 from typing import Optional
+from datetime import datetime
 
 from bussdcc.runtime.replay import ReplayRuntime as Base
+from bussdcc.clock import ClockProtocol
 from bussdcc.io import EventSinkProtocol
-from bussdcc.event import Event
+from bussdcc.state import StateStoreProtocol
+from bussdcc.event import Event, EventBusProtocol
 from bussdcc.message import Message, Severity
 
 from .. import message, __version__ as version
 
 
 class ReplayRuntime(Base):
-    def __init__(self) -> None:
-        super().__init__()
-
+    def __init__(
+        self,
+        *,
+        clock: Optional[ClockProtocol] = None,
+        events: EventBusProtocol | None = None,
+        state: StateStoreProtocol | None = None,
+        speed: float = 1.0,
+        start_at: datetime | None = None,
+    ):
+        super().__init__(
+            clock=clock, events=events, state=state, speed=speed, start_at=start_at
+        )
         self._sinks: list[EventSinkProtocol] = []
 
     def boot(self) -> None:
