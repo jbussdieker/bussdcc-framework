@@ -1,4 +1,4 @@
-from typing import Iterable
+from typing import Iterator
 from datetime import datetime
 from pathlib import Path
 import json
@@ -14,7 +14,7 @@ class JsonlSource(EventSourceProtocol):
         self.root = Path(root)
         self.start_at = None
 
-    def __iter__(self) -> Iterable[Event[Message]]:
+    def __iter__(self) -> Iterator[Event[Message]]:
         files = sorted(self.root.rglob("*.jsonl"))
         for file in files:
             with file.open() as f:
