@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.12.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.11.0...v0.12.0) (2026-03-06)
+
+
+### Features
+
+* **io:** update key extraction logic and bump bussdcc dependency ([ea589a3](https://github.com/jbussdieker/bussdcc-framework/commit/ea589a3dcccac0106c2ce729cabdd14894608515))
+
 ## [0.11.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.10.1...v0.11.0) (2026-03-05)
 
 
