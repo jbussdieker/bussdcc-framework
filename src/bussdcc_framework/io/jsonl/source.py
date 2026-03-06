@@ -24,12 +24,16 @@ class JsonlSource(EventSourceProtocol):
                     except json.JSONDecodeError as e:
                         print(f"{file}: {e}")
                         continue
+
                     evt_time = datetime.fromisoformat(record["time"])
+
                     if self.start_at and evt_time < self.start_at:
                         continue
-                    if not "key" in record:
-                        continue  # old format
-                    key = record["key"]
-                    key = key.split(".")[-1]  # old format
-                    message_cls = Message.resolve(key)
+
+                    if not "message" in record:
+                        continue  # invalid format
+
+                    message = record["message"]
+                    message_cls = Message._resolve(message)
+
                     yield Event(time=evt_time, payload=message_cls(**record["data"]))
