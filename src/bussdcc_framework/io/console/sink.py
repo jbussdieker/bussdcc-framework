@@ -20,7 +20,7 @@ class ConsoleSink(EventSinkProtocol):
 
         record = {
             "time": evt.time.isoformat(),
-            "key": Message.key_for(evt.payload),
+            "key": evt.payload.key(),
             "data": self.transform(evt),
         }
 

@@ -29,5 +29,7 @@ class JsonlSource(EventSourceProtocol):
                         continue
                     if not "key" in record:
                         continue  # old format
-                    message_cls = Message.resolve(record["key"])
+                    key = record["key"]
+                    key = key.split(".")[-1]  # old format
+                    message_cls = Message.resolve(key)
                     yield Event(time=evt_time, payload=message_cls(**record["data"]))
