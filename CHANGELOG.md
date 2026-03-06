@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.13.1](https://github.com/jbussdieker/bussdcc-framework/compare/v0.13.0...v0.13.1) (2026-03-06)
+
+
+### Bug Fixes
+
+* **deps:** update bussdcc dependency version ([3df932f](https://github.com/jbussdieker/bussdcc-framework/commit/3df932f270c65947e5da412ee95f4ffe56a08ab8))
+
 ## [0.13.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.12.0...v0.13.0) (2026-03-06)
 
 
