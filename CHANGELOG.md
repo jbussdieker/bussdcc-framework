@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.15.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.14.1...v0.15.0) (2026-03-07)
+
+
+### Features
+
+* **deps:** update bussdcc to version 0.34.0 ([7c7ffeb](https://github.com/jbussdieker/bussdcc-framework/commit/7c7ffeb18876863397dd9ebf60298eb35ab4f673))
+
 ## [0.14.1](https://github.com/jbussdieker/bussdcc-framework/compare/v0.14.0...v0.14.1) (2026-03-07)
 
 
