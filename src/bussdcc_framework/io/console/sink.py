@@ -24,7 +24,11 @@ class ConsoleSink(EventSinkProtocol):
             "data": self.transform(evt),
         }
 
-        line = json.dumps(record, separators=(",", ":"))
+        try:
+            line = json.dumps(record, separators=(",", ":"))
+        except:
+            line = repr(evt)
+
         print(line)
 
     def transform(self, evt: Event[Message]) -> Any:
