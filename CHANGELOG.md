@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.16.1](https://github.com/jbussdieker/bussdcc-framework/compare/v0.16.0...v0.16.1) (2026-03-08)
+
+
+### Bug Fixes
+
+* **console:** handle JSON serialization errors in ConsoleSink ([4f63fe3](https://github.com/jbussdieker/bussdcc-framework/commit/4f63fe3ca7b27f690b08aacf1bfa4a6940ff0c26))
+* **deps:** update dependency version constraints ([33fc26c](https://github.com/jbussdieker/bussdcc-framework/commit/33fc26c1213b1cf2d1e5c3699a2c1a15f1277988))
+
 ## [0.16.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.15.0...v0.16.0) (2026-03-08)
 
 
