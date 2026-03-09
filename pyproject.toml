@@ -4,12 +4,12 @@ dynamic = [
     "version",
 ]
 dependencies = [
-    "bussdcc ~= 0.36.0",
+    "bussdcc ~= 0.37.0",
     "flask ~= 3.1.3",
     "flask-socketio ~= 5.6.1",
     "bootstrap-flask ~= 2.5.0",
 ]
-description = "bussdcc-framework"
+description = "An opinionated runtime and tooling layer built on top of bussdcc."
 readme = "README.md"
 requires-python = ">=3.11"
 authors = [
