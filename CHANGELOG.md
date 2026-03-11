@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.20.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.19.0...v0.20.0) (2026-03-11)
+
+
+### Features
+
+* **database:** integrate SQLAlchemy with Flask ([348be2b](https://github.com/jbussdieker/bussdcc-framework/commit/348be2bc66af395a4db6dd4ab757ea9ae81e974d))
+
 ## [0.19.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.18.0...v0.19.0) (2026-03-10)
 
 
