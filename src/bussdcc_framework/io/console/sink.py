@@ -1,9 +1,7 @@
 from typing import Any
 import json
 
-from bussdcc.event import Event
-from bussdcc.message import Message
-from bussdcc.context import ContextProtocol
+from bussdcc import Event, Message, ContextProtocol
 from bussdcc.io import EventSinkProtocol
 
 

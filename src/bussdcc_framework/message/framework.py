@@ -1,7 +1,7 @@
 from typing import Optional
 from dataclasses import dataclass
 
-from bussdcc.message import Message
+from bussdcc import Message
 
 
 @dataclass(slots=True, frozen=True)

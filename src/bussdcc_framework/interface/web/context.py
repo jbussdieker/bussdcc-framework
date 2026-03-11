@@ -1,7 +1,6 @@
 from flask import current_app
 
-from bussdcc.context import ContextProtocol
-from bussdcc.message import Message
+from bussdcc import ContextProtocol, Message
 
 from .base import FlaskApp
 

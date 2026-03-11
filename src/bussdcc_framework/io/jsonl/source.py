@@ -3,10 +3,8 @@ from datetime import datetime
 from pathlib import Path
 import json
 
+from bussdcc import Event, Message
 from bussdcc.io import EventSourceProtocol
-
-from bussdcc.event import Event
-from bussdcc.message import Message
 
 
 class JsonlSource(EventSourceProtocol):

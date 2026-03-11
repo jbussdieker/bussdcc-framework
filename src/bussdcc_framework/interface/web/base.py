@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_socketio import SocketIO
 
-from bussdcc.context import ContextProtocol
+from bussdcc import ContextProtocol
 
 
 class FlaskApp(Flask):

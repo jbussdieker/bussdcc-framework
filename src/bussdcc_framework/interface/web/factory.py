@@ -4,7 +4,7 @@ from flask import render_template
 from flask_socketio import SocketIO
 from flask_bootstrap import Bootstrap5  # type: ignore[import-untyped]
 
-from bussdcc.context import ContextProtocol
+from bussdcc import ContextProtocol
 
 from .base import FlaskApp
 

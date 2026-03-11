@@ -1,8 +1,7 @@
 from typing import Optional
 from dataclasses import dataclass
 
-from bussdcc.event import Event
-from bussdcc.message import Message, Severity
+from bussdcc import Event, Message, Severity
 
 
 @dataclass(slots=True, frozen=True)

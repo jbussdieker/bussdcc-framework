@@ -1,12 +1,11 @@
 import traceback
 from typing import Optional
 
-from bussdcc.runtime import SignalRuntime
+from bussdcc import Event, Message, Severity, SignalRuntime
 from bussdcc.clock import ClockProtocol
 from bussdcc.io import EventSinkProtocol
 from bussdcc.state import StateStoreProtocol
-from bussdcc.event import Event, EventBusProtocol
-from bussdcc.message import Message, Severity
+from bussdcc.event import EventBusProtocol
 
 from .. import message, __version__ as version
 

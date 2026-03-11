@@ -1,9 +1,7 @@
 import socket
 from pathlib import Path
 
-from bussdcc.service import Service
-from bussdcc.context import ContextProtocol
-
+from bussdcc import Service, ContextProtocol
 from bussdcc_framework import message
 
 
