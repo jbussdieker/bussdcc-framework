@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.21.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.20.0...v0.21.0) (2026-03-11)
+
+
+### Features
+
+* **imports:** simplify import statements and update dependency ([8a46e5e](https://github.com/jbussdieker/bussdcc-framework/commit/8a46e5edc571d917c881bb639b435cfe8a516908))
+
 ## [0.20.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.19.0...v0.20.0) (2026-03-11)
 
 
