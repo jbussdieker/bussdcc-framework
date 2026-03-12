@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.22.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.21.0...v0.22.0) (2026-03-12)
+
+
+### Features
+
+* **web:** include app version in context ([1bb7300](https://github.com/jbussdieker/bussdcc-framework/commit/1bb73009a4ce17db739360e11058421d0b57c1e8))
+
 ## [0.21.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.20.0...v0.21.0) (2026-03-11)
 
 
