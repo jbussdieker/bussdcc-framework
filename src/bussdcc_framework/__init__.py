@@ -1,6 +1,6 @@
 from .version import __version__
 from .runtime import Runtime, SignalRuntime
-from .util import json
+from . import json
 
 __all__ = [
     "Runtime",

@@ -1,10 +1,13 @@
 from typing import Iterator
 from datetime import datetime
 from pathlib import Path
+from importlib import import_module
 import json
 
 from bussdcc import Event, Message
 from bussdcc.io import EventSourceProtocol
+
+from bussdcc_framework.util import build_dataclass
 
 
 class JsonlSource(EventSourceProtocol):
@@ -28,10 +31,15 @@ class JsonlSource(EventSourceProtocol):
                     if self.start_at and evt_time < self.start_at:
                         continue
 
-                    if not "message" in record:
+                    if not "type" in record:
                         continue  # invalid format
 
-                    message = record["message"]
-                    message_cls = Message._resolve(message)
+                    message_type = record["type"]
+                    module_path, object_name = message_type.split(":", 2)
+                    module = import_module(module_path)
+                    message_cls = getattr(module, object_name)
 
-                    yield Event(time=evt_time, payload=message_cls(**record["data"]))
+                    yield Event(
+                        time=evt_time,
+                        payload=build_dataclass(message_cls, record["data"]),
+                    )
