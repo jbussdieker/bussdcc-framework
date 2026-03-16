@@ -5,6 +5,7 @@ from flask_socketio import SocketIO
 from flask_bootstrap import Bootstrap5  # type: ignore[import-untyped]
 
 from bussdcc import ContextProtocol
+from bussdcc_framework import json as framework_json
 
 from .base import FlaskApp
 
@@ -31,7 +32,12 @@ def create_app(
     app = FlaskApp(import_name, **kwargs)
 
     Bootstrap5(app)
-    socketio = SocketIO(app, cors_allowed_origins="*", async_mode="threading")
+    socketio = SocketIO(
+        app,
+        cors_allowed_origins="*",
+        async_mode="threading",
+        json=framework_json,
+    )
 
     app.ctx = ctx
     app.socketio = socketio

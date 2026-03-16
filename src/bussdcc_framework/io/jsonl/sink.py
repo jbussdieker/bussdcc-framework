@@ -1,4 +1,3 @@
-import json
 import threading
 from pathlib import Path
 from datetime import datetime, timezone, timedelta
@@ -6,6 +5,7 @@ from typing import Any, TextIO
 
 from bussdcc import Event, Message, ContextProtocol
 from bussdcc.io import EventSinkProtocol
+from bussdcc_framework import json as framework_json
 
 
 class JsonlSink(EventSinkProtocol):
@@ -40,12 +40,12 @@ class JsonlSink(EventSinkProtocol):
                 self._rotate(segment_start)
 
             record = {
-                "time": evt.time.isoformat(),
-                "message": evt.payload._key(),
+                "time": evt.time,
+                "type": type(evt.payload),
                 "data": self.transform(evt),
             }
 
-            line = json.dumps(record, separators=(",", ":"))
+            line = framework_json.dumps(record, separators=(",", ":"))
             assert self._file is not None
             self._file.write(line + "\n")
 
@@ -56,7 +56,7 @@ class JsonlSink(EventSinkProtocol):
         Must return a JSON-serializable dict.
         Should not mutate evt.
         """
-        return evt.payload.to_dict() if hasattr(evt.payload, "to_dict") else {}
+        return evt.payload
 
     def _segment_start(self, dt: datetime) -> datetime:
         if dt.tzinfo is None:

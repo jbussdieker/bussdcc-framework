@@ -1,8 +1,8 @@
 from typing import Any
-import json
 
 from bussdcc import Event, Message, ContextProtocol
 from bussdcc.io import EventSinkProtocol
+from bussdcc_framework import json as framework_json
 
 
 class ConsoleSink(EventSinkProtocol):
@@ -17,13 +17,13 @@ class ConsoleSink(EventSinkProtocol):
             return
 
         record = {
-            "time": evt.time.isoformat(),
-            "message": evt.payload._key(),
+            "time": evt.time,
+            "type": type(evt.payload),
             "data": self.transform(evt),
         }
 
         try:
-            line = json.dumps(record, separators=(",", ":"))
+            line = framework_json.dumps(record, separators=(",", ":"))
         except:
             line = repr(evt)
 
@@ -36,4 +36,4 @@ class ConsoleSink(EventSinkProtocol):
         Must return a JSON-serializable dict.
         Should not mutate evt.
         """
-        return evt.payload.to_dict() if hasattr(evt.payload, "to_dict") else {}
+        return evt.payload
