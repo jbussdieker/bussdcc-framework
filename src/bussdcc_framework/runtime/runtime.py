@@ -1,7 +1,7 @@
 import traceback
 from typing import Optional
 
-from bussdcc import Event, Message, Severity, SignalRuntime
+from bussdcc import Event, Message, Severity, Runtime as Base
 from bussdcc.clock import ClockProtocol
 from bussdcc.io import EventSinkProtocol
 from bussdcc.state import StateStoreProtocol
@@ -10,7 +10,7 @@ from bussdcc.event import EventBusProtocol
 from .. import message, __version__ as version
 
 
-class Runtime(SignalRuntime):
+class Runtime(Base):
     def __init__(
         self,
         *,
