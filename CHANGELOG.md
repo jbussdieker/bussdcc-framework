@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.23.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.22.0...v0.23.0) (2026-03-16)
+
+
+### Features
+
+* **deps:** update bussdcc from version 0.39.0 to 0.40.0 ([096f536](https://github.com/jbussdieker/bussdcc-framework/commit/096f536bd6fa055e4aaded2fa2af5f379ab096e3))
+* **json:** integrate custom JSON serialization framework ([1aeac1a](https://github.com/jbussdieker/bussdcc-framework/commit/1aeac1a6bc0dcfd06a18f3299e60421a20138a5a))
+* **runtime:** introduce SignalRuntime for POSIX signal handling ([5ad4ad7](https://github.com/jbussdieker/bussdcc-framework/commit/5ad4ad71120a2fd4d72e7972a21c5e6fd37aeba4))
+
 ## [0.22.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.21.0...v0.22.0) (2026-03-12)
 
 
