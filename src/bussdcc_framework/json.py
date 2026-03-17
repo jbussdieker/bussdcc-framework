@@ -30,11 +30,11 @@ def to_jsonable(obj: Any) -> Any:
     if isinstance(obj, Path):
         return str(obj)
 
-    if is_dataclass(obj):
-        if isinstance(obj, type):
-            return f"{obj.__module__}:{obj.__qualname__}"
-
+    if is_dataclass(obj) and not isinstance(obj, type):
         return {f.name: to_jsonable(getattr(obj, f.name)) for f in fields(obj)}
+
+    if isinstance(obj, type):
+        return f"{obj.__module__}:{obj.__qualname__}"
 
     raise TypeError(f"{type(obj)} not JSON serializable")
 

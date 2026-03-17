@@ -1,4 +1,5 @@
 from typing import Any, Type, get_origin, get_args, Literal, Union
+from enum import Enum
 from dataclasses import is_dataclass, fields, MISSING
 from datetime import date, time, datetime
 
@@ -19,6 +20,11 @@ def _coerce(tp: Any, value: Any) -> Any:
         if value not in args:
             raise ValueError(f"{value!r} not in {args}")
         return value
+
+    if isinstance(tp, type) and issubclass(tp, Enum):
+        if isinstance(value, tp):
+            return value
+        return tp(value)
 
     if tp is bool:
         return value in ("on", "true", "1", True)
@@ -63,20 +69,43 @@ def build_dataclass(cls: object | type[object], data: dict[str, Any]) -> Any:
 
         if is_dataclass(f.type):
             value = build_dataclass(f.type, value or {})
+            kwargs[f.name] = value
+            continue
 
         origin = get_origin(f.type)
         args = get_args(f.type)
 
-        if origin is list and args and is_dataclass(args[0]) and value is not None:
-            value = [build_dataclass(args[0], v) for v in value]
-        elif (
-            origin is dict
-            and args
-            and args[0] is str
-            and is_dataclass(args[1])
-            and value is not None
-        ):
-            value = {k: build_dataclass(args[1], v) for k, v in value.items()}
+        if origin is list and args and value is not None:
+            item_type = args[0]
+            if is_dataclass(item_type):
+                value = [build_dataclass(item_type, v) for v in value]
+            else:
+                value = [_coerce(item_type, v) for v in value]
+
+        elif origin is tuple and args and value is not None:
+            if len(args) == 2 and args[1] is Ellipsis:
+                item_type = args[0]
+                if is_dataclass(item_type):
+                    value = tuple(build_dataclass(item_type, v) for v in value)
+                else:
+                    value = tuple(_coerce(item_type, v) for v in value)
+            else:
+                # fixed-length tuple[T1, T2, ...]
+                coerced = []
+                for item_type, item_value in zip(args, value):
+                    if is_dataclass(item_type):
+                        coerced.append(build_dataclass(item_type, item_value))
+                    else:
+                        coerced.append(_coerce(item_type, item_value))
+                value = tuple(coerced)
+
+        elif origin is dict and len(args) == 2 and args[0] is str and value is not None:
+            value_type = args[1]
+            if is_dataclass(value_type):
+                value = {k: build_dataclass(value_type, v) for k, v in value.items()}
+            else:
+                value = {k: _coerce(value_type, v) for k, v in value.items()}
+
         else:
             value = _coerce(f.type, value)
 
