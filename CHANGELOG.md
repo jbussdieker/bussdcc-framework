@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.24.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.23.0...v0.24.0) (2026-03-17)
+
+
+### Features
+
+* **json, dataclass:** enhance JSON serialization and dataclass handling ([e8269ae](https://github.com/jbussdieker/bussdcc-framework/commit/e8269aed2547964833d7ac853c6649e5c6b11033))
+
 ## [0.23.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.22.0...v0.23.0) (2026-03-16)
 
 
