@@ -1,6 +1,5 @@
 from typing import Any, Optional, TypedDict
 
-from flask import render_template
 from flask_socketio import SocketIO
 from flask_bootstrap import Bootstrap5  # type: ignore[import-untyped]
 

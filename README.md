@@ -89,8 +89,8 @@ Each line contains a structured event:
 
 ```json
 {
-  "time":"2026-03-09T12:00:01Z",
-  "message":"system.identity",
+  "time":"2026-03-09T12:00:01.735301+00:00",
+  "type":"bussdcc_framework.message.system:SystemIdentityEvent",
   "data":{ ... }
 }
 ```
@@ -159,7 +159,8 @@ runtime.add_sink(ConsoleSink())
 Example output:
 
 ```
-{"time":"2026-03-09T12:00:01Z","message":"framework.booted","data":{"version":"0.1.0"}}
+
+{"time":"2026-03-09T12:00:01.722504+00:00","type":"bussdcc_framework.message.framework:FrameworkBooted","data":{"version":"0.1.0"}}
 ```
 
 ## System Identity Service

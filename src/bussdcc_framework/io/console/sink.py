@@ -1,8 +1,9 @@
+import json
 from typing import Any
 
 from bussdcc import Event, Message, ContextProtocol
 from bussdcc.io import EventSinkProtocol
-from bussdcc_framework import json as framework_json
+from bussdcc_framework.codec import dump_value
 
 
 class ConsoleSink(EventSinkProtocol):
@@ -23,7 +24,7 @@ class ConsoleSink(EventSinkProtocol):
         }
 
         try:
-            line = framework_json.dumps(record, separators=(",", ":"))
+            line = json.dumps(dump_value(record), separators=(",", ":"))
         except:
             line = repr(evt)
 

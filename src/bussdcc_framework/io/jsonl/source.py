@@ -7,7 +7,7 @@ import json
 from bussdcc import Event, Message
 from bussdcc.io import EventSourceProtocol
 
-from bussdcc_framework.util import build_dataclass
+from bussdcc_framework.codec import load_value
 
 
 class JsonlSource(EventSourceProtocol):
@@ -41,5 +41,5 @@ class JsonlSource(EventSourceProtocol):
 
                     yield Event(
                         time=evt_time,
-                        payload=build_dataclass(message_cls, record["data"]),
+                        payload=load_value(message_cls, record["data"]),
                     )

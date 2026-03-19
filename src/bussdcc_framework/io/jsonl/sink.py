@@ -1,3 +1,4 @@
+import json
 import threading
 from pathlib import Path
 from datetime import datetime, timezone, timedelta
@@ -5,7 +6,7 @@ from typing import Any, TextIO
 
 from bussdcc import Event, Message, ContextProtocol
 from bussdcc.io import EventSinkProtocol
-from bussdcc_framework import json as framework_json
+from bussdcc_framework.codec import dump_value
 
 
 class JsonlSink(EventSinkProtocol):
@@ -45,7 +46,7 @@ class JsonlSink(EventSinkProtocol):
                 "data": self.transform(evt),
             }
 
-            line = framework_json.dumps(record, separators=(",", ":"))
+            line = json.dumps(dump_value(record), separators=(",", ":"))
             assert self._file is not None
             self._file.write(line + "\n")
 

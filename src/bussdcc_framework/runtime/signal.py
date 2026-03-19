@@ -1,4 +1,4 @@
-from typing import Dict, Callable, Optional
+from typing import Dict, Optional
 from types import FrameType
 import signal
 

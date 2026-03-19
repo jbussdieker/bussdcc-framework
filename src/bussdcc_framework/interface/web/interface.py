@@ -1,11 +1,10 @@
 from typing import Optional
-from abc import abstractmethod
 import threading
 
 from werkzeug.serving import make_server
 from flask_socketio import SocketIO
 
-from bussdcc import Process, ContextProtocol, Event
+from bussdcc import Process, ContextProtocol
 from bussdcc_framework import message
 
 from .base import FlaskApp
