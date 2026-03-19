@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.25.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.24.0...v0.25.0) (2026-03-19)
+
+
+### Features
+
+* **codec:** enhance serialization and deserialization handling ([6a8487d](https://github.com/jbussdieker/bussdcc-framework/commit/6a8487d8d6cc1d8e1cd7579db95fa83af9886a90))
+
 ## [0.24.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.23.0...v0.24.0) (2026-03-17)
 
 
