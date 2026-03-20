@@ -1,12 +1,11 @@
-import json
-import threading
 from pathlib import Path
 from datetime import datetime, timezone, timedelta
 from typing import Any, TextIO
+import threading
 
 from bussdcc import Event, Message, ContextProtocol
 from bussdcc.io import EventSinkProtocol
-from bussdcc_framework.codec import dump_value
+from bussdcc_framework import json as framework_json
 
 
 class JsonlSink(EventSinkProtocol):
@@ -30,6 +29,9 @@ class JsonlSink(EventSinkProtocol):
             self._file.close()
             self._file = None
 
+    def json_fallback(self, obj: Any) -> Any:
+        return framework_json.UNHANDLED
+
     def handle(self, evt: Event[Message]) -> None:
         if not evt.time:
             return
@@ -46,17 +48,11 @@ class JsonlSink(EventSinkProtocol):
                 "data": self.transform(evt),
             }
 
-            line = json.dumps(dump_value(record), separators=(",", ":"))
+            line = framework_json.dumps(record, fallback=self.json_fallback)
             assert self._file is not None
             self._file.write(line + "\n")
 
     def transform(self, evt: Event[Message]) -> Any:
-        """
-        Override to customize JSON output.
-
-        Must return a JSON-serializable dict.
-        Should not mutate evt.
-        """
         return evt.payload
 
     def _segment_start(self, dt: datetime) -> datetime:
@@ -64,10 +60,8 @@ class JsonlSink(EventSinkProtocol):
             dt = dt.replace(tzinfo=timezone.utc)
 
         interval_seconds = self.interval.total_seconds()
-
         timestamp = dt.timestamp()
         bucket = int(timestamp // interval_seconds) * interval_seconds
-
         return datetime.fromtimestamp(bucket, tz=dt.tzinfo)
 
     def _rotate(self, segment_start: datetime) -> None:

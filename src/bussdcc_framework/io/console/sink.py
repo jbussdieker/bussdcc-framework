@@ -1,9 +1,8 @@
-import json
 from typing import Any
 
 from bussdcc import Event, Message, ContextProtocol
 from bussdcc.io import EventSinkProtocol
-from bussdcc_framework.codec import dump_value
+from bussdcc_framework import json as framework_json
 
 
 class ConsoleSink(EventSinkProtocol):
@@ -12,6 +11,9 @@ class ConsoleSink(EventSinkProtocol):
 
     def stop(self) -> None:
         pass
+
+    def json_fallback(self, obj: Any) -> Any:
+        return framework_json.UNHANDLED
 
     def handle(self, evt: Event[Message]) -> None:
         if not evt.time:
@@ -24,17 +26,11 @@ class ConsoleSink(EventSinkProtocol):
         }
 
         try:
-            line = json.dumps(dump_value(record), separators=(",", ":"))
-        except:
+            line = framework_json.dumps(record, fallback=self.json_fallback)
+        except Exception:
             line = repr(evt)
 
         print(line)
 
     def transform(self, evt: Event[Message]) -> Any:
-        """
-        Override to customize JSON output.
-
-        Must return a JSON-serializable dict.
-        Should not mutate evt.
-        """
         return evt.payload
