@@ -1,4 +1,4 @@
-from typing import Any, Optional, TypedDict
+from typing import Any, Optional, TypedDict, Iterable
 
 from flask_socketio import SocketIO
 from flask_bootstrap import Bootstrap5  # type: ignore[import-untyped]
@@ -7,6 +7,8 @@ from bussdcc import ContextProtocol
 from bussdcc_framework import json as framework_json
 
 from .base import FlaskApp
+from .plugins import load_plugins
+from .protocol import WebPlugin
 
 
 class FlaskAppKwargs(TypedDict, total=False):
@@ -19,6 +21,7 @@ def create_app(
     import_name: str,
     template_folder: Optional[str] = None,
     static_folder: Optional[str] = None,
+    plugins: Iterable[WebPlugin] | None = None,
 ) -> FlaskApp:
     kwargs: FlaskAppKwargs = {}
 
@@ -54,5 +57,7 @@ def create_app(
             app_version=app_version,
             system_identity=system_identity,
         )
+
+    load_plugins(app, ctx, explicit_plugins=plugins)
 
     return app

@@ -35,6 +35,9 @@ keywords = [
 ]
 license = "MIT"
 
+[project.entry-points."bussdcc_framework.web"]
+formtree = "bussdcc_framework.interface.web.formtree.plugin:plugin"
+
 [project.optional-dependencies]
 sqlalchemy = [
     "flask-sqlalchemy ~= 3.1.1",

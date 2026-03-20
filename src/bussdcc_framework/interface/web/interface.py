@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, Iterable
 import threading
 
 from werkzeug.serving import make_server
@@ -9,6 +9,7 @@ from bussdcc_framework import message
 
 from .base import FlaskApp
 from .factory import create_app
+from .protocol import WebPlugin
 
 
 class WebInterface(Process):
@@ -21,10 +22,12 @@ class WebInterface(Process):
         port: int = 5000,
         template_folder: Optional[str] = None,
         static_folder: Optional[str] = None,
+        plugins: Iterable[WebPlugin] | None = None,
     ) -> None:
         self.import_name = import_name or __name__
         self.template_folder = template_folder
         self.static_folder = static_folder
+        self.plugins = list(plugins) if plugins is not None else None
         self.host = host
         self.port = port
         self._thread: threading.Thread | None = None
@@ -37,7 +40,11 @@ class WebInterface(Process):
 
     def start(self, ctx: ContextProtocol) -> None:
         self.app = create_app(
-            ctx, self.import_name, self.template_folder, self.static_folder
+            ctx,
+            self.import_name,
+            self.template_folder,
+            self.static_folder,
+            plugins=self.plugins,
         )
         self.socketio = self.app.socketio
 
