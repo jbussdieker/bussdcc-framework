@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.27.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.26.0...v0.27.0) (2026-03-20)
+
+
+### Features
+
+* **web:** add formtree plugin for dynamic form handling ([20a29ea](https://github.com/jbussdieker/bussdcc-framework/commit/20a29eac3fa42dc57f72cf17c5cb5def0c84f58a))
+
 ## [0.26.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.25.0...v0.26.0) (2026-03-20)
 
 
