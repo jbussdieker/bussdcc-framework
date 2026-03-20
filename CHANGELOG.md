@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.26.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.25.0...v0.26.0) (2026-03-20)
+
+
+### Features
+
+* **codec, io:** add customizable JSON serialization with fallback ([4d2a08f](https://github.com/jbussdieker/bussdcc-framework/commit/4d2a08f44c13838ac99e151ac215754028c39a95))
+
 ## [0.25.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.24.0...v0.25.0) (2026-03-19)
 
 
