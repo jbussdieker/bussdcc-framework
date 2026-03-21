@@ -2,6 +2,7 @@ from dataclasses import is_dataclass, fields, MISSING
 from typing import Any, TypeAlias, get_origin, get_args
 
 from .types import (
+    FieldMetadata,
     TreeNode,
     TreeField,
     TreeMapping,
@@ -29,7 +30,9 @@ def _detect_container(tp: object) -> tuple[str | None, Any | None]:
     return None, None
 
 
-def build(obj: Any, name: str | None = None) -> TreeNode:
+def build(
+    obj: Any, name: Optional[str] = None, meta: Optional[FieldMetadata] = None
+) -> TreeNode:
     if not is_dataclass(obj):
         raise TypeError("Expected dataclass")
 
@@ -39,6 +42,9 @@ def build(obj: Any, name: str | None = None) -> TreeNode:
     node_children: list[TreeNode] = []
     node_mappings: list[TreeMapping] = []
     node_lists: list[TreeList] = []
+
+    if meta is None:
+        meta = FieldMetadata(label=name or "Configuration")
 
     for f in fields(obj):
         if is_instance:
@@ -52,13 +58,16 @@ def build(obj: Any, name: str | None = None) -> TreeNode:
                 value = None
 
         container, subtype = _detect_container(f.type)
+        field_meta = FieldMetadata.from_field(f)
 
         if container == "list":
             list_entries: list[TreeListEntry] = []
 
             list_item_schema: TreeValue
             if is_dataclass(subtype):
-                list_item_schema = build(subtype, "value")
+                list_item_schema = build(
+                    subtype, "value", meta=FieldMetadata(label=field_meta.label)
+                )
             else:
                 list_item_schema = TreeField.create("value", subtype, label="Value")
 
@@ -85,6 +94,7 @@ def build(obj: Any, name: str | None = None) -> TreeNode:
             node_lists.append(
                 TreeList(
                     name=f.name,
+                    meta=field_meta,
                     entries=list_entries,
                     item_schema=list_item_schema,
                 )
@@ -96,7 +106,9 @@ def build(obj: Any, name: str | None = None) -> TreeNode:
 
             mapping_value_schema: TreeValue
             if is_dataclass(subtype):
-                mapping_value_schema = build(subtype, "value")
+                mapping_value_schema = build(
+                    subtype, "value", meta=FieldMetadata(label=field_meta.label)
+                )
             else:
                 mapping_value_schema = TreeField.create(
                     "value",
@@ -137,13 +149,16 @@ def build(obj: Any, name: str | None = None) -> TreeNode:
 
         if is_dataclass(f.type):
             nested = value if is_instance else f.type
-            node_children.append(build(nested, f.name))
+            node_children.append(
+                build(nested, f.name, meta=FieldMetadata.from_field(f))
+            )
             continue
 
         node_fields.append(TreeField.from_field(f, value=value))
 
     return TreeNode(
         name=name,
+        meta=meta,
         fields=node_fields,
         children=node_children,
         mappings=node_mappings,

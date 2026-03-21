@@ -152,6 +152,7 @@ class TreeMappingEntry:
 @dataclass(slots=True, frozen=True)
 class TreeMapping:
     name: str
+    meta: FieldMetadata
     entries: list[TreeMappingEntry]
     key_schema: TreeField
     value_schema: TreeField | TreeNode
@@ -166,6 +167,7 @@ class TreeListEntry:
 @dataclass(slots=True, frozen=True)
 class TreeList:
     name: str
+    meta: FieldMetadata
     entries: list[TreeListEntry]
     item_schema: TreeField | TreeNode
 
@@ -173,6 +175,7 @@ class TreeList:
 @dataclass(slots=True, frozen=True)
 class TreeNode:
     name: str | None
+    meta: FieldMetadata
     fields: list[TreeField]
     children: list["TreeNode"]
     mappings: list[TreeMapping]
