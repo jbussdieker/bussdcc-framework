@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.31.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.30.0...v0.31.0) (2026-03-21)
+
+
+### Features
+
+* **web:** enhance SocketIO configuration and template context ([71fc11e](https://github.com/jbussdieker/bussdcc-framework/commit/71fc11ea60ad0c04d9126322f28bb53ba3547e39))
+
 ## [0.30.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.29.0...v0.30.0) (2026-03-21)
 
 
