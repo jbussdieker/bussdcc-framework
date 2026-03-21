@@ -9,7 +9,7 @@ from bussdcc_framework import message
 
 from .base import FlaskApp
 from .factory import create_app
-from .protocol import WebPlugin
+from .plugins import PluginSpec
 
 
 class WebInterface(Process):
@@ -22,15 +22,18 @@ class WebInterface(Process):
         port: int = 5000,
         template_folder: Optional[str] = None,
         static_folder: Optional[str] = None,
-        plugins: Iterable[WebPlugin] | None = None,
+        plugins: Iterable[PluginSpec] | None = None,
     ) -> None:
         self.import_name = import_name or __name__
         self.template_folder = template_folder
         self.static_folder = static_folder
-        self.plugins = list(plugins) if plugins is not None else None
+        self.plugins = list(plugins) if plugins is not None else []
         self.host = host
         self.port = port
         self._thread: threading.Thread | None = None
+
+    def get_plugins(self) -> Iterable[PluginSpec]:
+        return []
 
     def register_routes(self, app: FlaskApp, ctx: ContextProtocol) -> None:
         pass
@@ -39,12 +42,14 @@ class WebInterface(Process):
         pass
 
     def start(self, ctx: ContextProtocol) -> None:
+        plugins = [*self.get_plugins(), *self.plugins]
+
         self.app = create_app(
             ctx,
             self.import_name,
             self.template_folder,
             self.static_folder,
-            plugins=self.plugins,
+            plugins=plugins,
         )
         self.socketio = self.app.socketio
 

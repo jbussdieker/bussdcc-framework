@@ -7,39 +7,50 @@ from .base import FlaskApp
 from .protocol import WebPlugin
 
 ENTRYPOINT_GROUP = "bussdcc_framework.web"
+PluginSpec = str | WebPlugin
 
 
-def _load_entrypoint_plugins() -> Iterable[WebPlugin]:
-    for ep in entry_points().select(group=ENTRYPOINT_GROUP):
-        try:
-            obj: Any = ep.load()
-        except Exception as e:
-            print(f"Web plugin load failure: {ep.name}: {e}")
-            continue
+def _load_entrypoint_plugin(name: str) -> WebPlugin:
+    matches = entry_points().select(group=ENTRYPOINT_GROUP, name=name)
+    ep = next(iter(matches), None)
 
-        if isinstance(obj, WebPlugin):
-            yield obj
-            continue
+    if ep is None:
+        raise RuntimeError(f"Unknown web plugin: {name}")
 
-        print(f"Web plugin ignored: {ep.name}: object does not implement WebPlugin")
+    try:
+        obj: Any = ep.load()
+    except Exception as e:
+        raise RuntimeError(f"Web plugin load failure: {name}: {e}") from e
+
+    if not isinstance(obj, WebPlugin):
+        raise RuntimeError(
+            f"Web plugin ignored: {name}: object does not implement WebPlugin"
+        )
+
+    return obj
+
+
+def _resolve_plugin(spec: PluginSpec) -> WebPlugin:
+    if isinstance(spec, str):
+        return _load_entrypoint_plugin(spec)
+    return spec
 
 
 def load_plugins(
     app: FlaskApp,
     ctx: ContextProtocol,
-    explicit_plugins: Iterable[WebPlugin] | None = None,
+    plugins: Iterable[PluginSpec] | None = None,
 ) -> None:
     seen: set[str] = set()
 
-    if explicit_plugins is not None:
-        for plugin in explicit_plugins:
-            if plugin.name in seen:
-                continue
-            plugin.init_app(app, ctx)
-            seen.add(plugin.name)
+    if plugins is None:
+        return
 
-    for plugin in _load_entrypoint_plugins():
+    for spec in plugins:
+        plugin = _resolve_plugin(spec)
+
         if plugin.name in seen:
             continue
+
         plugin.init_app(app, ctx)
         seen.add(plugin.name)

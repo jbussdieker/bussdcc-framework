@@ -1,14 +1,12 @@
 from typing import Any, Optional, TypedDict, Iterable
 
 from flask_socketio import SocketIO
-from flask_bootstrap import Bootstrap5  # type: ignore[import-untyped]
 
 from bussdcc import ContextProtocol
 from bussdcc_framework import json as framework_json
 
 from .base import FlaskApp
-from .plugins import load_plugins
-from .protocol import WebPlugin
+from .plugins import load_plugins, PluginSpec
 
 
 class FlaskAppKwargs(TypedDict, total=False):
@@ -21,7 +19,7 @@ def create_app(
     import_name: str,
     template_folder: Optional[str] = None,
     static_folder: Optional[str] = None,
-    plugins: Iterable[WebPlugin] | None = None,
+    plugins: Iterable[PluginSpec] | None = None,
 ) -> FlaskApp:
     kwargs: FlaskAppKwargs = {}
 
@@ -32,17 +30,13 @@ def create_app(
         kwargs["static_folder"] = static_folder
 
     app = FlaskApp(import_name, **kwargs)
-
-    Bootstrap5(app)
-    socketio = SocketIO(
+    app.ctx = ctx
+    app.socketio = SocketIO(
         app,
         cors_allowed_origins="*",
         async_mode="threading",
         json=framework_json,
     )
-
-    app.ctx = ctx
-    app.socketio = socketio
 
     @app.context_processor
     def get_context() -> dict[str, Any]:
@@ -58,6 +52,6 @@ def create_app(
             system_identity=system_identity,
         )
 
-    load_plugins(app, ctx, explicit_plugins=plugins)
+    load_plugins(app, ctx, plugins=plugins)
 
     return app
