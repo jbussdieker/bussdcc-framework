@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.29.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.28.0...v0.29.0) (2026-03-21)
+
+
+### Features
+
+* **web:** add Bootstrap plugin for enhanced UI integration ([deb5b3d](https://github.com/jbussdieker/bussdcc-framework/commit/deb5b3d89ec9a529b43e990f700726c8a5e53f5e))
+* **web:** add new plugins for enhanced UI and interactivity ([883f738](https://github.com/jbussdieker/bussdcc-framework/commit/883f7382f3345c5b552068a40f633baf8aaa1f29))
+* **web:** add SQLAlchemy plugin for database integration ([269738c](https://github.com/jbussdieker/bussdcc-framework/commit/269738c40365f63a3e898d92954e2fb0dd6de4f5))
+
 ## [0.28.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.27.0...v0.28.0) (2026-03-21)
 
 
