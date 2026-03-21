@@ -17,8 +17,21 @@ class SocketIOPlugin:
             static_folder="static",
         )
 
+        app.config.setdefault("SOCKETIO_RECONNECT", True)
+        app.config.setdefault("SOCKETIO_RECONNECT_ATTEMPTS", None)
         app.config.setdefault("SOCKETIO_RECONNECT_DELAY", 1000)
         app.config.setdefault("SOCKETIO_RECONNECT_DELAY_MAX", 5000)
+
+        @app.context_processor
+        def socketio_template_context() -> dict[str, object]:
+            return {
+                "framework_socketio": {
+                    "reconnect": app.config["SOCKETIO_RECONNECT"],
+                    "reconnect_attempts": app.config["SOCKETIO_RECONNECT_ATTEMPTS"],
+                    "reconnect_delay": app.config["SOCKETIO_RECONNECT_DELAY"],
+                    "reconnect_delay_max": app.config["SOCKETIO_RECONNECT_DELAY_MAX"],
+                }
+            }
 
         app.register_blueprint(bp)
 
