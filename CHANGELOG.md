@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.32.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.31.0...v0.32.0) (2026-03-21)
+
+
+### Features
+
+* **web/formtree:** enhance formtree with metadata and template improvements ([bb5eaae](https://github.com/jbussdieker/bussdcc-framework/commit/bb5eaae4847dec7232d8da806c5f14f518eb1949))
+* **web/formtree:** improve formtree prototype handling ([6137ef7](https://github.com/jbussdieker/bussdcc-framework/commit/6137ef711e33f81ba48782bbf710f29daec111cb))
+
 ## [0.31.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.30.0...v0.31.0) (2026-03-21)
 
 
