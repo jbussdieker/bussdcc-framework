@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 from typing import Iterable, Any
 from importlib.metadata import entry_points
 

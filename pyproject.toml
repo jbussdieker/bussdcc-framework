@@ -37,6 +37,7 @@ license = "MIT"
 
 [project.entry-points."bussdcc_framework.web"]
 formtree = "bussdcc_framework.interface.web.formtree.plugin:plugin"
+sqlalchemy = "bussdcc_framework.interface.web.sqlalchemy.plugin:plugin"
 
 [project.optional-dependencies]
 sqlalchemy = [
