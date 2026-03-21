@@ -32,7 +32,7 @@ class WebInterface(Process):
         self.port = port
         self._thread: threading.Thread | None = None
 
-    def get_plugins(self) -> Iterable[PluginSpec]:
+    def iter_plugins(self) -> Iterable[PluginSpec]:
         return []
 
     def register_routes(self, app: FlaskApp, ctx: ContextProtocol) -> None:
@@ -42,7 +42,7 @@ class WebInterface(Process):
         pass
 
     def start(self, ctx: ContextProtocol) -> None:
-        plugins = [*self.get_plugins(), *self.plugins]
+        plugins = [*self.iter_plugins(), *self.plugins]
 
         self.app = create_app(
             ctx,
