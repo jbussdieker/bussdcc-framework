@@ -13,7 +13,7 @@
 {% macro render_field(field, prefix="") %}
   {% if field is tree_field %}
     {% set name = prefix ~ field.name %}
-    <div class="mb-2">
+    <div class="mb-3">
       {% if field.input_type == "checkbox" %}
         <div class="form-check">
           <input id="{{name}}"
@@ -62,38 +62,40 @@
 
 {% macro render_list_entry(list_node, entry, prefix) %}
   {% if list_node is tree_list and entry is tree_list_entry %}
-    <div class="border rounded p-3 mb-2 formtree-row"
+    <div class="border rounded p-3 mb-3 formtree-row"
          data-formtree-row
          data-formtree-row-id="{{ entry.name }}">
-      <div class="d-flex justify-content-between align-items-center mb-2">
-        <div class="fw-semibold">Item {{ entry.name }}</div>
-        <button type="button" class="btn btn-outline-danger btn-sm" data-formtree-action="delete">
+      {{ render_value(entry.value, prefix ~ list_node.name ~ "." ~ entry.name ~ ".") }}
+
+      <div class="text-end">
+        <button type="button"
+                class="btn btn-outline-danger btn-sm"
+                data-formtree-action="delete">
           Delete
         </button>
       </div>
-
-      {{ render_value(entry.value, prefix ~ list_node.name ~ "." ~ entry.name ~ ".") }}
     </div>
   {% endif %}
 {% endmacro %}
 
 {% macro render_mapping_entry(mapping, entry, prefix) %}
   {% if mapping is tree_mapping and entry is tree_mapping_entry %}
-    <div class="border rounded p-3 mb-2 formtree-row"
+    <div class="border rounded p-3 mb-3 formtree-row"
          data-formtree-row
          data-formtree-row-id="{{ entry.name }}">
-      <div class="d-flex justify-content-between align-items-center mb-2">
-        <div class="fw-semibold">Item {{ entry.name }}</div>
-        <button type="button" class="btn btn-outline-danger btn-sm" data-formtree-action="delete">
-          Delete
-        </button>
-      </div>
-
       {% if entry.key is tree_field %}
         {{ render_field(entry.key, prefix ~ mapping.name ~ "." ~ entry.name ~ ".") }}
       {% endif %}
 
       {{ render_value(entry.value, prefix ~ mapping.name ~ "." ~ entry.name ~ ".") }}
+
+      <div class="text-end">
+        <button type="button"
+                class="btn btn-outline-danger btn-sm"
+                data-formtree-action="delete">
+          Delete
+        </button>
+      </div>
     </div>
   {% endif %}
 {% endmacro %}
@@ -121,7 +123,7 @@
 
     {% for list_node in node.lists %}
       {% if list_node is tree_list %}
-        <div class="card mb-2"
+        <div class="card mb-3"
              data-formtree-collection
              data-formtree-kind="list"
              data-formtree-name="{{ list_node.name }}">
@@ -151,7 +153,7 @@
 
     {% for mapping in node.mappings %}
       {% if mapping is tree_mapping %}
-        <div class="card mb-2"
+        <div class="card mb-3"
              data-formtree-collection
              data-formtree-kind="mapping"
              data-formtree-name="{{ mapping.name }}">
@@ -183,13 +185,6 @@
 
 {% macro render(node, prefix="") %}
   {% if node is tree_node %}
-    <div class="card mb-3">
-      <div class="card-header">
-        {{ node.meta.label }}
-      </div>
-      <div class="card-body">
-        {{ render_node(node, prefix) }}
-      </div>
-    </div>
+    {{ render_node(node, prefix) }}
   {% endif %}
 {% endmacro %}

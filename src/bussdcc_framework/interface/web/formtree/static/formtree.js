@@ -22,11 +22,6 @@ function formtreeReplacePlaceholder(root, rowId) {
       }
     }
   }
-
-  const heading = root.querySelector(".fw-semibold");
-  if (heading) {
-    heading.textContent = `Item ${rowId}`;
-  }
 }
 
 document.addEventListener("click", (event) => {
