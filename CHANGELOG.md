@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.28.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.27.0...v0.28.0) (2026-03-21)
+
+
+### Features
+
+* **framework:** enhance runtime and io capabilities ([bad0d33](https://github.com/jbussdieker/bussdcc-framework/commit/bad0d33bd5122faee5408609c8ccb37738f34252))
+
 ## [0.27.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.26.0...v0.27.0) (2026-03-20)
 
 
