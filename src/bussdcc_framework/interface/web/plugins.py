@@ -20,7 +20,7 @@ def _load_entrypoint_plugin(name: str) -> WebPlugin:
     try:
         obj: Any = ep.load()
     except Exception as e:
-        raise RuntimeError(f"Web plugin load failure: {name}: {e}") from e
+        raise RuntimeError(f"Failed to load web plugin {name!r}: {e}") from e
 
     if not isinstance(obj, WebPlugin):
         raise RuntimeError(

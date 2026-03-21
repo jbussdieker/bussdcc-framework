@@ -7,7 +7,7 @@ from ..protocol import WebPlugin
 
 
 class BootstrapLayoutPlugin:
-    name = "bootstrap_layout"
+    name = "bootstrap-layout"
 
     def init_app(self, app: FlaskApp, ctx: ContextProtocol) -> None:
         bp = Blueprint(
