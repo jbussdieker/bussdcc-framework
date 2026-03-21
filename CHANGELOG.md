@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.30.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.29.0...v0.30.0) (2026-03-21)
+
+
+### Features
+
+* **web:** expose FlaskApp in web interface ([a7b0fee](https://github.com/jbussdieker/bussdcc-framework/commit/a7b0fee230b92bf4a336ad30c42d9d3ec4c994f1))
+
 ## [0.29.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.28.0...v0.29.0) (2026-03-21)
 
 
