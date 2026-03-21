@@ -1,0 +1,41 @@
+{% from 'bootstrap5/utils.html' import render_messages %}
+<!doctype html>
+<html lang="en">
+  <head>
+    {% block head %}
+      <title>{% block title %}Application{% endblock %}</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+      {% block styles %}
+        {{ bootstrap.load_css() }}
+      {% endblock %}
+
+      {% block scripts %}
+        {{ bootstrap.load_js() }}
+      {% endblock %}
+    {% endblock %}
+  </head>
+  <body class="{% block body_class %}bg-light{% endblock %}">
+    {% block body %}
+      {% block nav %}{% endblock %}
+
+      {% block container %}
+        <div class="container mt-2">
+          {{ render_messages() }}
+          {% block content %}{% endblock %}
+        </div>
+      {% endblock %}
+
+      {% block footer %}
+        <footer class="mt-4">
+          <p class="text-center text-body-secondary">
+            {% block footer_text %}
+              {% block app_name %}Application{% endblock %} {{ app_version }} • framework {{ framework_version }} • bussdcc {{ runtime_version }}
+            {% endblock %}
+          </p>
+        </footer>
+      {% endblock %}
+    {% endblock %}
+  </body>
+</html>
