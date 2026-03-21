@@ -1,0 +1,38 @@
+{% block socketio_scripts %}
+<script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/4.8.1/socket.io.min.js"></script>
+
+<script>
+  var socket = io({
+    reconnection: true,
+    reconnectionAttempts: Infinity,
+    reconnectionDelay: {{ config.SOCKETIO_RECONNECT_DELAY }},
+    reconnectionDelayMax: {{ config.SOCKETIO_RECONNECT_DELAY_MAX }}
+  });
+
+  socket.on('connect', function() {
+    socket.emit('connected', { data: 'connected!' });
+    console.log("✅ Connected to socket, id:", socket.id);
+  });
+
+  socket.on('disconnect', function(reason) {
+    console.warn("⚠️ Socket disconnected:", reason);
+  });
+
+  socket.on('reconnect_attempt', function(attempt) {
+    console.log(`🔄 Attempting to reconnect (#${attempt})...`);
+  });
+
+  socket.on('reconnect', function(attempt) {
+    console.log(`✅ Reconnected after ${attempt} attempts, id: ${socket.id}`);
+    socket.emit('connected', { data: 'reconnected!' });
+  });
+
+  socket.on('reconnect_error', function(error) {
+    console.error("❌ Reconnection error:", error);
+  });
+
+  socket.on('reconnect_failed', function() {
+    console.error("❌ Could not reconnect");
+  });
+</script>
+{% endblock %}

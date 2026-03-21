@@ -36,8 +36,11 @@ license = "MIT"
 
 [project.entry-points."bussdcc_framework.web"]
 bootstrap = "bussdcc_framework.interface.web.bootstrap.plugin:plugin"
+bootstrap-layout = "bussdcc_framework.interface.web.bootstrap_layout.plugin:plugin"
 formtree = "bussdcc_framework.interface.web.formtree.plugin:plugin"
 sqlalchemy = "bussdcc_framework.interface.web.sqlalchemy.plugin:plugin"
+socketio = "bussdcc_framework.interface.web.socketio.plugin:plugin"
+chartjs = "bussdcc_framework.interface.web.chartjs.plugin:plugin"
 
 [project.optional-dependencies]
 bootstrap = [
