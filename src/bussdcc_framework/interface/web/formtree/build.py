@@ -1,5 +1,5 @@
 from dataclasses import is_dataclass, fields, MISSING
-from typing import Any, TypeAlias, get_origin, get_args
+from typing import Any, Optional, TypeAlias, get_origin, get_args
 
 from .types import (
     FieldMetadata,
@@ -140,6 +140,7 @@ def build(
             node_mappings.append(
                 TreeMapping(
                     name=f.name,
+                    meta=field_meta,
                     entries=mapping_entries,
                     key_schema=TreeField.create("key", str, label="Key"),
                     value_schema=mapping_value_schema,

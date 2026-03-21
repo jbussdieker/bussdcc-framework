@@ -157,6 +157,14 @@ class TreeMapping:
     key_schema: TreeField
     value_schema: TreeField | TreeNode
 
+    @property
+    def prototype(self) -> TreeMappingEntry:
+        return TreeMappingEntry(
+            name="__name__",
+            key=self.key_schema,
+            value=self.value_schema,
+        )
+
 
 @dataclass(slots=True, frozen=True)
 class TreeListEntry:
@@ -170,6 +178,13 @@ class TreeList:
     meta: FieldMetadata
     entries: list[TreeListEntry]
     item_schema: TreeField | TreeNode
+
+    @property
+    def prototype(self) -> TreeListEntry:
+        return TreeListEntry(
+            name="__name__",
+            value=self.item_schema,
+        )
 
 
 @dataclass(slots=True, frozen=True)

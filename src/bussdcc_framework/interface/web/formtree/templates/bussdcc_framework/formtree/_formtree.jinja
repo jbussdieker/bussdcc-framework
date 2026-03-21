@@ -138,11 +138,7 @@
             </div>
 
             <template data-formtree-prototype>
-              {{ render_list_entry(
-                  list_node,
-                  {"name": "__name__", "value": list_node.item_schema},
-                  prefix
-              ) }}
+              {{ render_list_entry(list_node, list_node.prototype, prefix) }}
             </template>
 
             <button type="button" class="btn btn-primary" data-formtree-action="add">
@@ -172,15 +168,7 @@
             </div>
 
             <template data-formtree-prototype>
-              {{ render_mapping_entry(
-                  mapping,
-                  {
-                    "name": "__name__",
-                    "key": mapping.key_schema,
-                    "value": mapping.value_schema
-                  },
-                  prefix
-              ) }}
+              {{ render_mapping_entry(mapping, mapping.prototype, prefix) }}
             </template>
 
             <button type="button" class="btn btn-primary" data-formtree-action="add">
