@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.33.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.32.0...v0.33.0) (2026-03-22)
+
+
+### Features
+
+* **message/process/service:** move system identity components to bussdcc-system ([e52185e](https://github.com/jbussdieker/bussdcc-framework/commit/e52185ecb4853225ce81f04ecc99ada7835f89cc))
+
 ## [0.32.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.31.0...v0.32.0) (2026-03-21)
 
 
