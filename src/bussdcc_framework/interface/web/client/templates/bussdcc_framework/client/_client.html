@@ -1,0 +1,11 @@
+{% block bussdcc_client_scripts %}
+<script>
+  window.BUSSDCC_SOCKETIO_CONFIG = {
+    reconnection: {{ framework_socketio.reconnect|tojson }},
+    reconnectionAttempts: {{ "Infinity" if framework_socketio.reconnect_attempts is none else framework_socketio.reconnect_attempts|tojson }},
+    reconnectionDelay: {{ framework_socketio.reconnect_delay|tojson }},
+    reconnectionDelayMax: {{ framework_socketio.reconnect_delay_max|tojson }}
+  };
+</script>
+<script src="{{ url_for('bussdcc_framework_client.static', filename='client.js') }}"></script>
+{% endblock %}
