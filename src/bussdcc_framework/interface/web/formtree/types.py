@@ -35,7 +35,7 @@ def _field_shape(
     enum_tp = _enum_type(base_tp)
 
     if origin is Literal:
-        return "select", [str(v) for v in args], value
+        return "select", [str(v) for v in args], None if value is None else str(value)
 
     if enum_tp is not None:
         if isinstance(value, Enum):

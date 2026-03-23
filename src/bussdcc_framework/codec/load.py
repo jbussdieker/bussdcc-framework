@@ -80,10 +80,11 @@ def load_value(tp: Any, value: Any) -> Any:
     if origin is dict:
         if not isinstance(value, dict):
             raise TypeError(f"{tp} requires dict input")
+
         key_tp, value_tp = args
-        if key_tp is not str:
-            raise TypeError("Only dict[str, T] is supported")
-        return {k: load_value(value_tp, v) for k, v in value.items()}
+        return {
+            load_value(key_tp, k): load_value(value_tp, v) for k, v in value.items()
+        }
 
     if origin is set:
         if not isinstance(value, list):

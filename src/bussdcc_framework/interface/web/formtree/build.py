@@ -1,5 +1,6 @@
 from dataclasses import is_dataclass, fields, MISSING
-from typing import Any, Optional, TypeAlias, get_origin, get_args
+from typing import Any, Optional, TypeAlias, Literal, get_origin, get_args
+from enum import Enum
 
 from .types import (
     FieldMetadata,
@@ -14,7 +15,22 @@ from .types import (
 TreeValue: TypeAlias = TreeField | TreeNode
 
 
-def _detect_container(tp: object) -> tuple[str | None, Any | None]:
+def _is_supported_mapping_key_type(tp: object) -> bool:
+    origin = get_origin(tp)
+
+    if tp in (str, int, float, bool):
+        return True
+
+    if origin is Literal:
+        return True
+
+    if isinstance(tp, type) and issubclass(tp, Enum):
+        return True
+
+    return False
+
+
+def _detect_container(tp: object) -> tuple[str | None, Any | None, Any | None]:
     origin = get_origin(tp)
     args = get_args(tp)
 
@@ -22,12 +38,12 @@ def _detect_container(tp: object) -> tuple[str | None, Any | None]:
         item_tp = args[0]
         if len(args) == 2 and args[1] is Ellipsis:
             item_tp = args[0]
-        return "list", item_tp
+        return "list", None, item_tp
 
-    if origin is dict and len(args) == 2 and args[0] is str:
-        return "dict", args[1]
+    if origin is dict and len(args) == 2:
+        return "dict", args[0], args[1]
 
-    return None, None
+    return None, None, None
 
 
 def build(
@@ -57,7 +73,7 @@ def build(
             else:
                 value = None
 
-        container, subtype = _detect_container(f.type)
+        container, key_type, subtype = _detect_container(f.type)
         field_meta = FieldMetadata.from_field(f)
 
         if container == "list":
@@ -102,6 +118,12 @@ def build(
             continue
 
         if container == "dict":
+            if not _is_supported_mapping_key_type(key_type):
+                raise TypeError(
+                    f"Unsupported mapping key type for formtree: {key_type!r}. "
+                    "Only str, int, float, bool, Literal, and Enum are supported."
+                )
+
             mapping_entries: list[TreeMappingEntry] = []
 
             mapping_value_schema: TreeValue
@@ -115,6 +137,8 @@ def build(
                     subtype,
                     label="Value",
                 )
+
+            key_schema = TreeField.create("key", key_type, label="Key")
 
             if value:
                 for i, (k, v) in enumerate(value.items()):
@@ -132,7 +156,7 @@ def build(
                     mapping_entries.append(
                         TreeMappingEntry(
                             name=str(i),
-                            key=TreeField.create("key", str, value=k, label="Key"),
+                            key=TreeField.create("key", key_type, value=k, label="Key"),
                             value=mapping_entry_value,
                         )
                     )
@@ -142,7 +166,7 @@ def build(
                     name=f.name,
                     meta=field_meta,
                     entries=mapping_entries,
-                    key_schema=TreeField.create("key", str, label="Key"),
+                    key_schema=key_schema,
                     value_schema=mapping_value_schema,
                 )
             )

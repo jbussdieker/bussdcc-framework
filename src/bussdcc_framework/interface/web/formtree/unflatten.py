@@ -87,15 +87,17 @@ def unflatten(tree: TreeNode, flat: dict[str, Any]) -> dict[str, Any]:
             prefix_for_mapping = _child_prefix(node_prefix, mapping.name)
             row_ids = _collect_row_ids(flat, prefix_for_mapping)
 
-            dict_items: dict[str, Any] = {}
+            dict_items: dict[Any, Any] = {}
             for row_id in row_ids:
                 row_prefix = f"{prefix_for_mapping}.{row_id}"
 
                 raw_dict_key = flat.get(f"{row_prefix}.key")
-                if not isinstance(raw_dict_key, str) or raw_dict_key == "":
+                if raw_dict_key in (None, ""):
                     continue
 
-                dict_key = raw_dict_key
+                dict_key = coerce_form_value(mapping.key_schema.type, raw_dict_key)
+                if dict_key is None:
+                    continue
 
                 if isinstance(mapping.value_schema, TreeField):
                     value_key = f"{row_prefix}.value"
