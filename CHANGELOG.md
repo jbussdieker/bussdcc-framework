@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.34.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.33.0...v0.34.0) (2026-03-23)
+
+
+### Features
+
+* **web/client:** add client plugin for socket management ([adf1db9](https://github.com/jbussdieker/bussdcc-framework/commit/adf1db9640037acd04839ea0e8d16c1c20adc151))
+* **web/formtree:** enhance literal value coercion in form processing ([2ec9689](https://github.com/jbussdieker/bussdcc-framework/commit/2ec968962f538d215621876ee1fa652cdc6c04dd))
+* **web/formtree:** support non-string dictionary keys in form processing ([037d3f9](https://github.com/jbussdieker/bussdcc-framework/commit/037d3f9b2c23784c65aba48721556cb84bea75e3))
+
 ## [0.33.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.32.0...v0.33.0) (2026-03-22)
 
 
