@@ -16,6 +16,24 @@ def unwrap_optional(tp: Any) -> Any:
     return tp
 
 
+def _coerce_literal_value(options: tuple[Any, ...], raw: Any) -> Any:
+    for option in options:
+        if raw == option:
+            return option
+
+        if isinstance(option, bool):
+            if raw in ("true", "1", "on", "yes", True) and option is True:
+                return True
+            if raw in ("false", "0", "off", "no", False) and option is False:
+                return False
+            continue
+
+        if str(option) == str(raw):
+            return option
+
+    raise ValueError(f"{raw!r} is not one of {options!r}")
+
+
 def coerce_form_value(tp: Any, raw: Any) -> Any:
     tp = unwrap_optional(tp)
 
@@ -33,7 +51,7 @@ def coerce_form_value(tp: Any, raw: Any) -> Any:
     origin = get_origin(tp)
 
     if origin is Literal:
-        return raw
+        return _coerce_literal_value(get_args(tp), raw)
 
     if isinstance(tp, type) and issubclass(tp, Enum):
         return raw
