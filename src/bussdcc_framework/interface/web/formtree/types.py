@@ -2,8 +2,10 @@ from __future__ import annotations
 from dataclasses import Field, dataclass
 from datetime import date, datetime, time
 from enum import Enum
-from types import MappingProxyType, UnionType
+from types import UnionType
 from typing import Any, Literal, Union, get_args, get_origin
+
+from bussdcc_framework.metadata import FieldMetadata
 
 
 def _unwrap_optional(tp: object) -> object:
@@ -24,10 +26,16 @@ def _enum_type(tp: object) -> type[Enum] | None:
     return None
 
 
+@dataclass(slots=True, frozen=True)
+class FieldOption:
+    value: str
+    label: str
+
+
 def _field_shape(
     tp: object,
     value: Any | None,
-) -> tuple[str, list[str] | None, Any | None]:
+) -> tuple[str, list[FieldOption] | None, Any | None]:
     base_tp = _unwrap_optional(tp)
     origin = get_origin(base_tp)
     args = get_args(base_tp)
@@ -35,12 +43,23 @@ def _field_shape(
     enum_tp = _enum_type(base_tp)
 
     if origin is Literal:
-        return "select", [str(v) for v in args], None if value is None else str(value)
+        return (
+            "select",
+            [FieldOption(value=str(v), label=str(v)) for v in args],
+            None if value is None else str(value),
+        )
 
     if enum_tp is not None:
         if isinstance(value, Enum):
             value = value.value
-        return "select", [str(member.value) for member in enum_tp], value
+        return (
+            "select",
+            [
+                FieldOption(value=str(member.value), label=str(member.value))
+                for member in enum_tp
+            ],
+            None if value is None else str(value),
+        )
 
     if base_tp in (int, float):
         return "number", None, value
@@ -61,38 +80,13 @@ def _field_shape(
 
 
 @dataclass(slots=True, frozen=True)
-class FieldMetadata:
-    label: str
-    group: str = "General"
-    required: bool = False
-    help: str | None = None
-    min: int | float | None = None
-    max: int | float | None = None
-    step: int | float | None = None
-
-    @staticmethod
-    def from_field(f: Field[object]) -> "FieldMetadata":
-        meta: MappingProxyType[Any, Any] = f.metadata
-
-        return FieldMetadata(
-            label=meta.get("label", f.name),
-            group=meta.get("group", "General"),
-            required=meta.get("required", False),
-            help=meta.get("help"),
-            min=meta.get("min"),
-            max=meta.get("max"),
-            step=meta.get("step"),
-        )
-
-
-@dataclass(slots=True, frozen=True)
 class TreeField:
     name: str
     type: object
     meta: FieldMetadata
     value: Any | None = None
     input_type: str | None = None
-    options: list[str] | None = None
+    options: list[FieldOption] | None = None
 
     @staticmethod
     def create(

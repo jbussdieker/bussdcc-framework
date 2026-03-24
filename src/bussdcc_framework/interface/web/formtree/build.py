@@ -2,8 +2,9 @@ from dataclasses import is_dataclass, fields, MISSING
 from typing import Any, Optional, TypeAlias, Literal, get_origin, get_args
 from enum import Enum
 
+from bussdcc_framework.metadata import FieldMetadata
+
 from .types import (
-    FieldMetadata,
     TreeNode,
     TreeField,
     TreeMapping,

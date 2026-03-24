@@ -5,6 +5,7 @@ from bussdcc import ContextProtocol
 from ..base import FlaskApp
 from ..protocol import WebPlugin
 from .types import (
+    FieldOption,
     TreeNode,
     TreeField,
     TreeList,
@@ -26,6 +27,7 @@ class FormtreePlugin:
         app.jinja_env.tests["tree_mapping_entry"] = lambda x: isinstance(
             x, TreeMappingEntry
         )
+        app.jinja_env.tests["field_option"] = lambda x: isinstance(x, FieldOption)
 
         bp = Blueprint(
             "bussdcc_framework_formtree",

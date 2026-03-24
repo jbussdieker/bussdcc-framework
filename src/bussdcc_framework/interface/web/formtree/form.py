@@ -54,7 +54,10 @@ def coerce_form_value(tp: Any, raw: Any) -> Any:
         return _coerce_literal_value(get_args(tp), raw)
 
     if isinstance(tp, type) and issubclass(tp, Enum):
-        return raw
+        for member in tp:
+            if str(member.value) == str(raw):
+                return member
+        raise ValueError(f"{raw!r} is not a valid value for {tp.__name__}")
 
     if tp is int:
         return int(raw)
