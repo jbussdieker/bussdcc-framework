@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.35.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.34.0...v0.35.0) (2026-03-24)
+
+
+### Features
+
+* **web/formtree:** enhance form processing with improved enum handling and metadata refactoring ([97dd97c](https://github.com/jbussdieker/bussdcc-framework/commit/97dd97cf05487b4d23176a4ad3af8be78c9acbb9))
+
 ## [0.34.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.33.0...v0.34.0) (2026-03-23)
 
 
