@@ -4,7 +4,8 @@ from datetime import date, time, datetime
 from enum import Enum
 from pathlib import Path
 
-UNHANDLED = object()
+from .base import UNHANDLED
+
 DumpFallback = Callable[[Any], Any]
 
 

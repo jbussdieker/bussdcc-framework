@@ -1,7 +1,8 @@
 import json
 from typing import Any
 
-from .codec.dump import dump_value, UNHANDLED, DumpFallback
+from .codec import UNHANDLED, dump_value
+from .codec.dump import DumpFallback
 
 
 def to_jsonable(obj: Any, fallback: DumpFallback | None = None) -> Any:
