@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.36.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.35.0...v0.36.0) (2026-03-25)
+
+
+### Features
+
+* **web:** consolidate bootstrap and layout plugins ([aef3bc3](https://github.com/jbussdieker/bussdcc-framework/commit/aef3bc3facaa945ed4e57b4dc751145c43886c6e))
+
 ## [0.35.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.34.0...v0.35.0) (2026-03-24)
 
 
