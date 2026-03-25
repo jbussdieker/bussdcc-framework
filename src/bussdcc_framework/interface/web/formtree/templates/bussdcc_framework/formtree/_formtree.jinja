@@ -25,7 +25,8 @@
         </div>
       {% elif field.input_type == "select" %}
         <label for="{{name}}" class="form-label">{{ field.meta.label }}</label>
-        <select id="{{name}}" class="form-select" name="{{ name }}">
+        <select id="{{name}}" class="form-select{% if field.error %} is-invalid{% endif %}" name="{{ name }}">
+          <option value=""></option>
           {% for option in field.options %}
             <option value="{{ option.value }}" {% if option.value == field.value %}selected{% endif %}>
               {{ option.label }}
@@ -36,13 +37,16 @@
         <label for="{{name}}" class="form-label">{{ field.meta.label }}</label>
         <input id="{{name}}"
                type="{{field.input_type}}"
-               class="form-control"
+               class="form-control{% if field.error %} is-invalid{% endif %}"
                name="{{ name }}"
                {{ field_value_attr(field) }}
                {% if field.meta.min != None %}min="{{ field.meta.min }}"{% endif %}
                {% if field.meta.max != None %}max="{{ field.meta.max }}"{% endif %}
                {% if field.meta.step != None %}step="{{ field.meta.step }}"{% endif %}
                {% if field.meta.required %}required{% endif %}>
+      {% endif %}
+      {% if field.error %}
+        <div class="invalid-feedback">{{ field.error }}</div>
       {% endif %}
 
       {% if field.meta.help %}

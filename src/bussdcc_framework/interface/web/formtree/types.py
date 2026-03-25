@@ -87,6 +87,7 @@ class TreeField:
     value: Any | None = None
     input_type: str | None = None
     options: list[FieldOption] | None = None
+    error: str | None = None
 
     @staticmethod
     def create(
@@ -100,6 +101,7 @@ class TreeField:
         min: int | float | None = None,
         max: int | float | None = None,
         step: int | float | None = None,
+        error: str | None = None,
     ) -> "TreeField":
         meta = FieldMetadata(
             label=label or name,
@@ -119,10 +121,13 @@ class TreeField:
             value=value,
             input_type=input_type,
             options=options,
+            error=error,
         )
 
     @staticmethod
-    def from_field(f: Field[object], value: Any | None = None) -> "TreeField":
+    def from_field(
+        f: Field[object], value: Any | None = None, *, error: str | None = None
+    ) -> "TreeField":
         meta = FieldMetadata.from_field(f)
         input_type, options, value = _field_shape(f.type, value)
 
@@ -133,6 +138,7 @@ class TreeField:
             value=value,
             input_type=input_type,
             options=options,
+            error=error,
         )
 
 
@@ -189,3 +195,4 @@ class TreeNode:
     children: list["TreeNode"]
     mappings: list[TreeMapping]
     lists: list[TreeList]
+    errors: int = 0
