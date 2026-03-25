@@ -1,5 +1,4 @@
-from flask_bootstrap import Bootstrap5  # type: ignore[import-untyped]
-
+from flask import Blueprint
 from bussdcc import ContextProtocol
 
 from ..base import FlaskApp
@@ -10,7 +9,14 @@ class BootstrapPlugin:
     name = "bootstrap"
 
     def init_app(self, app: FlaskApp, ctx: ContextProtocol) -> None:
-        Bootstrap5(app)
+        bp = Blueprint(
+            "bussdcc_framework_bootstrap",
+            __name__,
+            template_folder="templates",
+            static_folder="static",
+            static_url_path="/_framework/bootstrap/static",
+        )
+        app.register_blueprint(bp)
 
 
 plugin: WebPlugin = BootstrapPlugin()

@@ -15,6 +15,7 @@ class SocketIOPlugin:
             __name__,
             template_folder="templates",
             static_folder="static",
+            static_url_path="/_framework/socketio/static",
         )
 
         app.config.setdefault("SOCKETIO_RECONNECT", True)

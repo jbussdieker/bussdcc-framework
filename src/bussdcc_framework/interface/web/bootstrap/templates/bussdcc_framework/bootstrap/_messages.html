@@ -1,0 +1,24 @@
+{% macro render_messages(dismissible=true) %}
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div class="mb-3">
+        {% for category, message in messages %}
+          {% set bs = {
+            'message': 'primary',
+            'info': 'info',
+            'success': 'success',
+            'warning': 'warning',
+            'error': 'danger',
+            'danger': 'danger'
+          }.get(category, 'secondary') %}
+          <div class="alert alert-{{ bs }}{% if dismissible %} alert-dismissible fade show{% endif %}" role="alert">
+            {{ message }}
+            {% if dismissible %}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+{% endmacro %}

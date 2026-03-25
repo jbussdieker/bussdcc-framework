@@ -1,4 +1,4 @@
-{% from 'bootstrap5/utils.html' import render_messages %}
+{% from 'bussdcc_framework/bootstrap/_messages.html' import render_messages %}
 <!doctype html>
 <html lang="en">
   <head>
@@ -8,11 +8,15 @@
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
       {% block styles %}
-        {{ bootstrap.load_css() }}
+        <link rel="stylesheet"
+          href="{{ url_for('bussdcc_framework_bootstrap.static', filename='css/bootstrap.5.3.8.min.css') }}"
+        >
       {% endblock %}
 
       {% block scripts %}
-        {{ bootstrap.load_js() }}
+        <script
+          src="{{ url_for('bussdcc_framework_bootstrap.static', filename='js/bootstrap.bundle.5.3.8.min.js') }}"
+        ></script>
       {% endblock %}
     {% endblock %}
   </head>
