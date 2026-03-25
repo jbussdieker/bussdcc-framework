@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.37.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.36.0...v0.37.0) (2026-03-25)
+
+
+### Features
+
+* **codec:** make atomic loading logic a separate function ([2a9649e](https://github.com/jbussdieker/bussdcc-framework/commit/2a9649e983c4c5eb56c9c69d0b6ae4225ba2f03d))
+* **formtree:** enhance form validation and error handling ([cd68979](https://github.com/jbussdieker/bussdcc-framework/commit/cd68979bff3c87d4fa8d02a63666eacdb028b824))
+
 ## [0.36.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.35.0...v0.36.0) (2026-03-25)
 
 
