@@ -11,9 +11,11 @@ from bussdcc.state import StateStoreProtocol
 from .. import message, __version__ as version
 
 
-def _message_type_name(msg: Message) -> str:
+def _message_type_segments(msg: Message) -> list[str]:
     cls = type(msg)
-    return f"{cls.__module__}:{cls.__qualname__}"
+    module_parts = cls.__module__.split(".")
+    name_parts = cls.__qualname__.split(".")
+    return [*module_parts, *name_parts]
 
 
 class FrameworkRuntimeBase(KernelRuntime):
@@ -90,7 +92,7 @@ class FrameworkRuntimeBase(KernelRuntime):
             lambda v: (v or 0) + 1,
         )
 
-        self.ctx.state.update(
-            f"runtime_info.message_types.{_message_type_name(evt.payload)}",
-            lambda v: (v or 0) + 1,
+        path = "runtime_info.message_types." + ".".join(
+            _message_type_segments(evt.payload)
         )
+        self.ctx.state.update(path, lambda v: (v or 0) + 1)
