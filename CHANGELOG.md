@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.39.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.38.0...v0.39.0) (2026-03-26)
+
+
+### Features
+
+* **runtime:** improve message type handling in runtime base ([92a9db8](https://github.com/jbussdieker/bussdcc-framework/commit/92a9db88053b64d7541711abef29c638b0eb493f))
+
 ## [0.38.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.37.0...v0.38.0) (2026-03-26)
 
 
