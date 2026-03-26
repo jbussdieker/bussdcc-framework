@@ -4,12 +4,13 @@ import threading
 from werkzeug.serving import make_server
 from flask_socketio import SocketIO
 
-from bussdcc import Process, ContextProtocol
+from bussdcc import Process, ContextProtocol, Event, Message
 from bussdcc_framework import message
 
 from .base import FlaskApp
 from .factory import create_app
-from .plugins import PluginSpec
+from .plugins import PluginSpec, resolve_plugins
+from .protocol import WebPlugin
 
 
 class WebInterface(Process):
@@ -31,6 +32,8 @@ class WebInterface(Process):
         self.host = host
         self.port = port
         self._thread: threading.Thread | None = None
+        self._plugins: list[WebPlugin] = []
+        self._event_handlers: dict[type[Message], list[WebPlugin]] = {}
 
     def iter_plugins(self) -> Iterable[PluginSpec]:
         return []
@@ -42,14 +45,16 @@ class WebInterface(Process):
         pass
 
     def start(self, ctx: ContextProtocol) -> None:
-        plugins = [*self.iter_plugins(), *self.plugins]
+        plugin_specs = [*self.iter_plugins(), *self.plugins]
+        self._plugins = resolve_plugins(plugin_specs)
+        self._event_handlers = self._build_event_handlers(self._plugins)
 
         self.app = create_app(
             ctx,
             self.import_name,
             self.template_folder,
             self.static_folder,
-            plugins=plugins,
+            plugins=self._plugins,
         )
         self.socketio = self.app.socketio
 
@@ -62,7 +67,40 @@ class WebInterface(Process):
             daemon=True,
         )
         self._thread.start()
+
         ctx.emit(message.WebInterfaceStarted(host=self.host, port=self.port))
+
+    def _build_event_handlers(
+        self,
+        plugins: Iterable[WebPlugin],
+    ) -> dict[type[Message], list[WebPlugin]]:
+        handlers: dict[type[Message], list[WebPlugin]] = {}
+
+        for plugin in plugins:
+            for event_type in plugin.event_types():
+                handlers.setdefault(event_type, []).append(plugin)
+
+        return handlers
+
+    def handle_event(self, ctx: ContextProtocol, evt: Event[Message]) -> None:
+        app = getattr(self, "app", None)
+        socketio = getattr(self, "socketio", None)
+
+        if app is None or socketio is None:
+            return
+
+        seen: set[str] = set()
+
+        for cls in type(evt.payload).__mro__:
+            if cls is object:
+                continue
+
+            for plugin in self._event_handlers.get(cls, ()):
+                if plugin.name in seen:
+                    continue
+
+                plugin.handle_event(app, socketio, ctx, evt)
+                seen.add(plugin.name)
 
     def _run(self) -> None:
         self._server = make_server(

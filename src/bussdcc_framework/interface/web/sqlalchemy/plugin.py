@@ -1,15 +1,15 @@
 from bussdcc import ContextProtocol
 
-from ..base import FlaskApp
-from ..protocol import WebPlugin
+from .. import BaseWebPlugin, FlaskApp, WebPlugin
+
 from .database import db
 
 
-class SqlAlchemyPlugin:
+class SqlAlchemyPlugin(BaseWebPlugin):
     name = "sqlalchemy"
 
     def init_app(self, app: FlaskApp, ctx: ContextProtocol) -> None:
         db.init_app(app)
 
 
-plugin: WebPlugin = SqlAlchemyPlugin()
+plugin = SqlAlchemyPlugin()

@@ -2,11 +2,10 @@ from flask import Blueprint
 
 from bussdcc import ContextProtocol
 
-from ..base import FlaskApp
-from ..protocol import WebPlugin
+from .. import BaseWebPlugin, FlaskApp, WebPlugin
 
 
-class ClientPlugin:
+class ClientPlugin(BaseWebPlugin):
     name = "client"
 
     def init_app(self, app: FlaskApp, ctx: ContextProtocol) -> None:

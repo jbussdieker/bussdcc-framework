@@ -1,4 +1,4 @@
-from typing import Protocol, runtime_checkable, Iterable
+from typing import Iterable
 
 from flask_socketio import SocketIO
 
@@ -7,13 +7,14 @@ from bussdcc import ContextProtocol, Event, Message
 from .base import FlaskApp
 
 
-@runtime_checkable
-class WebPlugin(Protocol):
-    name: str
+class BaseWebPlugin:
+    name = "base"
 
-    def init_app(self, app: FlaskApp, ctx: ContextProtocol) -> None: ...
+    def init_app(self, app: FlaskApp, ctx: ContextProtocol) -> None:
+        pass
 
-    def event_types(self) -> Iterable[type[Message]]: ...
+    def event_types(self) -> Iterable[type[Message]]:
+        return ()
 
     def handle_event(
         self,
@@ -21,4 +22,5 @@ class WebPlugin(Protocol):
         socketio: SocketIO,
         ctx: ContextProtocol,
         evt: Event[Message],
-    ) -> None: ...
+    ) -> None:
+        pass

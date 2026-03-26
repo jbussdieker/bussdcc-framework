@@ -2,8 +2,8 @@ from flask import Blueprint
 
 from bussdcc import ContextProtocol
 
-from ..base import FlaskApp
-from ..protocol import WebPlugin
+from .. import BaseWebPlugin, FlaskApp, WebPlugin
+
 from .types import (
     FieldOption,
     TreeNode,
@@ -15,7 +15,7 @@ from .types import (
 )
 
 
-class FormtreePlugin:
+class FormtreePlugin(BaseWebPlugin):
     name = "formtree"
 
     def init_app(self, app: FlaskApp, ctx: ContextProtocol) -> None:

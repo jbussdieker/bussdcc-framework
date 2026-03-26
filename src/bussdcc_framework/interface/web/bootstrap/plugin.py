@@ -1,11 +1,11 @@
 from flask import Blueprint
+
 from bussdcc import ContextProtocol
 
-from ..base import FlaskApp
-from ..protocol import WebPlugin
+from .. import BaseWebPlugin, FlaskApp, WebPlugin
 
 
-class BootstrapPlugin:
+class BootstrapPlugin(BaseWebPlugin):
     name = "bootstrap"
 
     def init_app(self, app: FlaskApp, ctx: ContextProtocol) -> None:
@@ -19,4 +19,4 @@ class BootstrapPlugin:
         app.register_blueprint(bp)
 
 
-plugin: WebPlugin = BootstrapPlugin()
+plugin = BootstrapPlugin()

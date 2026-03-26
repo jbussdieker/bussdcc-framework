@@ -2,11 +2,10 @@ from flask import Blueprint
 
 from bussdcc import ContextProtocol
 
-from ..base import FlaskApp
-from ..protocol import WebPlugin
+from .. import BaseWebPlugin, FlaskApp, WebPlugin
 
 
-class ChartJSPlugin:
+class ChartJSPlugin(BaseWebPlugin):
     name = "chartjs"
 
     def init_app(self, app: FlaskApp, ctx: ContextProtocol) -> None:
@@ -17,8 +16,7 @@ class ChartJSPlugin:
             static_folder="static",
             static_url_path="/_framework/chartjs/static",
         )
-
         app.register_blueprint(bp)
 
 
-plugin: WebPlugin = ChartJSPlugin()
+plugin = ChartJSPlugin()

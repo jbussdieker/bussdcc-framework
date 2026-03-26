@@ -6,7 +6,8 @@ from bussdcc import ContextProtocol
 from bussdcc_framework import json as framework_json
 
 from .base import FlaskApp
-from .plugins import load_plugins, PluginSpec
+from .plugins import init_plugins
+from .protocol import WebPlugin
 
 
 class FlaskAppKwargs(TypedDict, total=False):
@@ -19,7 +20,7 @@ def create_app(
     import_name: str,
     template_folder: Optional[str] = None,
     static_folder: Optional[str] = None,
-    plugins: Iterable[PluginSpec] | None = None,
+    plugins: Iterable[WebPlugin] | None = None,
 ) -> FlaskApp:
     kwargs: FlaskAppKwargs = {}
 
@@ -52,6 +53,6 @@ def create_app(
             system_identity=system_identity,
         )
 
-    load_plugins(app, ctx, plugins=plugins)
+    init_plugins(app, ctx, plugins=plugins)
 
     return app

@@ -36,15 +36,14 @@ def _resolve_plugin(spec: PluginSpec) -> WebPlugin:
     return spec
 
 
-def load_plugins(
-    app: FlaskApp,
-    ctx: ContextProtocol,
+def resolve_plugins(
     plugins: Iterable[PluginSpec] | None = None,
-) -> None:
+) -> list[WebPlugin]:
     seen: set[str] = set()
+    resolved: list[WebPlugin] = []
 
     if plugins is None:
-        return
+        return resolved
 
     for spec in plugins:
         plugin = _resolve_plugin(spec)
@@ -52,5 +51,19 @@ def load_plugins(
         if plugin.name in seen:
             continue
 
-        plugin.init_app(app, ctx)
+        resolved.append(plugin)
         seen.add(plugin.name)
+
+    return resolved
+
+
+def init_plugins(
+    app: FlaskApp,
+    ctx: ContextProtocol,
+    plugins: Iterable[WebPlugin] | None = None,
+) -> None:
+    if plugins is None:
+        return
+
+    for plugin in plugins:
+        plugin.init_app(app, ctx)
