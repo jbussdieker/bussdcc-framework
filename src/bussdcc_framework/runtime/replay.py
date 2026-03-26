@@ -1,72 +1,7 @@
-import traceback
-from typing import Optional
-from datetime import datetime
+from bussdcc.runtime.replay import ReplayRuntime as KernelReplayRuntime
 
-from bussdcc.runtime.replay import ReplayRuntime as Base
-from bussdcc.clock import ClockProtocol
-from bussdcc.io import EventSinkProtocol
-from bussdcc.state import StateStoreProtocol
-from bussdcc.event import EventBusProtocol
-from bussdcc import Event, Message, Severity
-
-from .. import message, __version__ as version
+from .base import FrameworkRuntimeBase
 
 
-class ReplayRuntime(Base):
-    def __init__(
-        self,
-        *,
-        clock: Optional[ClockProtocol] = None,
-        events: EventBusProtocol | None = None,
-        state: StateStoreProtocol | None = None,
-        speed: float = 1.0,
-        start_at: datetime | None = None,
-    ):
-        super().__init__(
-            clock=clock, events=events, state=state, speed=speed, start_at=start_at
-        )
-        self._sinks: list[EventSinkProtocol] = []
-
-    def boot(self) -> None:
-        for sink in self._sinks:
-            sink.start(self.ctx)
-
-        super().boot()
-
-        self.ctx.emit(message.FrameworkBooted(version=version))
-
-    def _dispatch(self, evt: Event[Message]) -> None:
-        for sink in self._sinks:
-            try:
-                sink.handle(evt)
-            except Exception as e:
-                if evt.payload.severity >= Severity.ERROR:
-                    continue
-
-                self.ctx.emit(
-                    message.SinkHandlerError(
-                        sink=type(sink).__name__,
-                        error=repr(e),
-                        evt=evt,
-                        traceback=traceback.format_exc(),
-                    )
-                )
-
-        super()._dispatch(evt)
-
-    def shutdown(self, reason: Optional[str] = None) -> None:
-        self.ctx.emit(message.FrameworkShuttingDown(version=version, reason=reason))
-
-        try:
-            super().shutdown(reason)
-        finally:
-            for sink in self._sinks:
-                try:
-                    sink.stop()
-                except Exception:
-                    pass
-
-    def add_sink(self, sink: EventSinkProtocol) -> None:
-        if self._booted:
-            raise RuntimeError("Cannot add sinks after boot")
-        self._sinks.append(sink)
+class ReplayRuntime(FrameworkRuntimeBase, KernelReplayRuntime):
+    pass

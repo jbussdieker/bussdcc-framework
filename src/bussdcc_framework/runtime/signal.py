@@ -1,15 +1,18 @@
-from typing import Dict, Optional
-from types import FrameType
 import signal
+from types import FrameType
+from typing import Optional, Dict, Callable
 
 from bussdcc import message
 
 from .runtime import Runtime
 
+SignalHandler = Callable[[int, FrameType | None], object]
+PreviousHandler = SignalHandler | int | None
+
 
 class SignalRuntime(Runtime):
     """
-    Threaded runtime supervised by POSIX signals.
+    Runtime supervised by POSIX signals.
     """
 
     SIGNAL_ACTIONS: Dict[int, str] = {
@@ -24,7 +27,7 @@ class SignalRuntime(Runtime):
         action = self.SIGNAL_ACTIONS.get(signum)
 
         if action == "shutdown":
-            # Thread-safe: shutdown() only sets state and events
+            # safe: shutdown just flips state + emits events
             self.shutdown(signal.strsignal(signum))
         elif action == "reload":
             self.ctx.emit(message.SystemReload())
@@ -34,7 +37,8 @@ class SignalRuntime(Runtime):
     def _on_boot(self) -> None:
         super()._on_boot()
 
-        self._prev_handlers = {}
+        self._prev_handlers: Dict[int, PreviousHandler] = {}
+
         for signum in self.SIGNAL_ACTIONS:
             self._prev_handlers[signum] = signal.getsignal(signum)
             signal.signal(signum, self._signal_handler)
