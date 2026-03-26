@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.40.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.39.0...v0.40.0) (2026-03-26)
+
+
+### Features
+
+* **web:** enhance plugin architecture and event handling ([aa14efb](https://github.com/jbussdieker/bussdcc-framework/commit/aa14efbb71248934b2957bfb1967ff5045e7f1b1))
+
 ## [0.39.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.38.0...v0.39.0) (2026-03-26)
 
 
