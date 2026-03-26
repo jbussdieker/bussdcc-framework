@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.38.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.37.0...v0.38.0) (2026-03-26)
+
+
+### Features
+
+* **runtime:** refactor runtime classes and update dependencies ([6b1ab4d](https://github.com/jbussdieker/bussdcc-framework/commit/6b1ab4dd0fdcf46331e977ed7e2be123c2b9ec49))
+
 ## [0.37.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.36.0...v0.37.0) (2026-03-25)
 
 
