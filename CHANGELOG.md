@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.40.1](https://github.com/jbussdieker/bussdcc-framework/compare/v0.40.0...v0.40.1) (2026-03-27)
+
+
+### Bug Fixes
+
+* **codec:** handle string conversion to int in load_atomic ([c008a2d](https://github.com/jbussdieker/bussdcc-framework/commit/c008a2d7d7ac002e1b9540ba4db5c9528294d47f))
+
 ## [0.40.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.39.0...v0.40.0) (2026-03-26)
 
 
