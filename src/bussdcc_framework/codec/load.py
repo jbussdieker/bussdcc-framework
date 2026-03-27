@@ -37,9 +37,13 @@ def load_atomic(tp: Any, value: Any) -> Any:
         return value
 
     if tp is int:
-        if isinstance(value, bool) or not isinstance(value, int):
+        if isinstance(value, bool):
             raise TypeError(f"{tp} requires integer input")
-        return value
+        if isinstance(value, int):
+            return value
+        if isinstance(value, str):
+            return int(value)
+        raise TypeError(f"{tp} requires integer input")
 
     if tp is float:
         if isinstance(value, bool) or not isinstance(value, (int, float)):
