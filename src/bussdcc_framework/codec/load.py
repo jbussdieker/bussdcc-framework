@@ -3,6 +3,7 @@ from dataclasses import fields, is_dataclass, MISSING
 from datetime import date, time, datetime
 from enum import Enum
 from pathlib import Path
+from uuid import UUID
 import types
 
 from .base import UNHANDLED
@@ -54,6 +55,13 @@ def load_atomic(tp: Any, value: Any) -> Any:
         if not isinstance(value, (str, Path)):
             raise TypeError(f"{tp} requires path-like input")
         return Path(value)
+
+    if tp is UUID:
+        if isinstance(value, UUID):
+            return value
+        if isinstance(value, str):
+            return UUID(value)
+        raise TypeError(f"{tp} requires UUID string input")
 
     if tp is datetime:
         if isinstance(value, datetime):

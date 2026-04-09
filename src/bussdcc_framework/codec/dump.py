@@ -3,6 +3,7 @@ from dataclasses import fields, is_dataclass
 from datetime import date, time, datetime
 from enum import Enum
 from pathlib import Path
+from uuid import UUID
 
 from .base import UNHANDLED
 
@@ -32,6 +33,9 @@ def dump_value(obj: Any, fallback: DumpFallback | None = None) -> Any:
         return obj.value
 
     if isinstance(obj, Path):
+        return str(obj)
+
+    if isinstance(obj, UUID):
         return str(obj)
 
     if is_dataclass(obj) and not isinstance(obj, type):
