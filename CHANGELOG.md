@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.41.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.40.1...v0.41.0) (2026-04-09)
+
+
+### Features
+
+* **codec:** add UUID support in dump and load functions ([2d17f14](https://github.com/jbussdieker/bussdcc-framework/commit/2d17f146b87c7df4447074999bf2937c1ad9af30))
+
 ## [0.40.1](https://github.com/jbussdieker/bussdcc-framework/compare/v0.40.0...v0.40.1) (2026-03-27)
 
 
