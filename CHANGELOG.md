@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.42.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.41.0...v0.42.0) (2026-04-10)
+
+
+### Features
+
+* **formtree:** add RefResolver support to build function ([9384490](https://github.com/jbussdieker/bussdcc-framework/commit/93844902b35d91ec663b9924d698450ec0b870cc))
+
 ## [0.41.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.40.1...v0.41.0) (2026-04-09)
 
 
