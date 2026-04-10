@@ -4,6 +4,7 @@ from enum import Enum
 
 from bussdcc_framework.metadata import FieldMetadata
 
+from .protocol import RefResolver
 from .types import (
     TreeNode,
     TreeField,
@@ -48,7 +49,10 @@ def _detect_container(tp: object) -> tuple[str | None, Any | None, Any | None]:
 
 
 def build(
-    obj: Any, name: Optional[str] = None, meta: Optional[FieldMetadata] = None
+    obj: Any,
+    name: Optional[str] = None,
+    meta: Optional[FieldMetadata] = None,
+    ref_resolver: RefResolver | None = None,
 ) -> TreeNode:
     if not is_dataclass(obj):
         raise TypeError("Expected dataclass")
@@ -83,7 +87,10 @@ def build(
             list_item_schema: TreeValue
             if is_dataclass(subtype):
                 list_item_schema = build(
-                    subtype, "value", meta=FieldMetadata(label=field_meta.label)
+                    subtype,
+                    "value",
+                    meta=FieldMetadata(label=field_meta.label),
+                    ref_resolver=ref_resolver,
                 )
             else:
                 list_item_schema = TreeField.create("value", subtype, label="Value")
@@ -130,7 +137,10 @@ def build(
             mapping_value_schema: TreeValue
             if is_dataclass(subtype):
                 mapping_value_schema = build(
-                    subtype, "value", meta=FieldMetadata(label=field_meta.label)
+                    subtype,
+                    "value",
+                    meta=FieldMetadata(label=field_meta.label),
+                    ref_resolver=ref_resolver,
                 )
             else:
                 mapping_value_schema = TreeField.create(
@@ -176,11 +186,28 @@ def build(
         if is_dataclass(f.type):
             nested = value if is_instance else f.type
             node_children.append(
-                build(nested, f.name, meta=FieldMetadata.from_field(f))
+                build(
+                    nested,
+                    f.name,
+                    meta=FieldMetadata.from_field(f),
+                    ref_resolver=ref_resolver,
+                )
             )
             continue
 
-        node_fields.append(TreeField.from_field(f, value=value))
+        ref_options = None
+
+        if ref_resolver is not None and field_meta.ref is not None:
+            ref_options = ref_resolver.resolve(field_meta.ref, f.type)
+
+        node_fields.append(
+            TreeField.from_field(
+                f,
+                value=value,
+                meta=field_meta,
+                ref_options=ref_options,
+            )
+        )
 
     return TreeNode(
         name=name,

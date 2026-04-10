@@ -126,15 +126,25 @@ class TreeField:
 
     @staticmethod
     def from_field(
-        f: Field[object], value: Any | None = None, *, error: str | None = None
+        f: Field[object],
+        value: Any | None = None,
+        *,
+        error: str | None = None,
+        meta: FieldMetadata | None = None,
+        ref_options: list[FieldOption] | None = None,
     ) -> "TreeField":
-        meta = FieldMetadata.from_field(f)
         input_type, options, value = _field_shape(f.type, value)
+
+        if ref_options is not None:
+            input_type = "select"
+            options = ref_options
+            if value is not None:
+                value = str(value)
 
         return TreeField(
             name=f.name,
             type=f.type,
-            meta=meta,
+            meta=meta if meta is not None else FieldMetadata.from_field(f),
             value=value,
             input_type=input_type,
             options=options,
