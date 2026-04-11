@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.43.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.42.0...v0.43.0) (2026-04-11)
+
+
+### Features
+
+* **formtree:** enhance metadata handling and ref resolution ([c8d780a](https://github.com/jbussdieker/bussdcc-framework/commit/c8d780aba45ad5d032fd1d68eb57586d37e8343b))
+
 ## [0.42.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.41.0...v0.42.0) (2026-04-10)
 
 
