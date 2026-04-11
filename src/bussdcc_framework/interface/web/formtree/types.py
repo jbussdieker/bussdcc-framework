@@ -95,24 +95,36 @@ class TreeField:
         type: object,
         value: Any | None = None,
         *,
+        meta: FieldMetadata | None = None,
         label: str | None = None,
         required: bool = False,
         help: str | None = None,
         min: int | float | None = None,
         max: int | float | None = None,
         step: int | float | None = None,
+        ref_options: list[FieldOption] | None = None,
         error: str | None = None,
     ) -> "TreeField":
-        meta = FieldMetadata(
-            label=label or name,
-            required=required,
-            help=help,
-            min=min,
-            max=max,
-            step=step,
+        meta = (
+            meta
+            if meta is not None
+            else FieldMetadata(
+                label=label or name,
+                required=required,
+                help=help,
+                min=min,
+                max=max,
+                step=step,
+            )
         )
 
         input_type, options, value = _field_shape(type, value)
+
+        if ref_options is not None:
+            input_type = "select"
+            options = ref_options
+            if value is not None:
+                value = str(value)
 
         return TreeField(
             name=name,
