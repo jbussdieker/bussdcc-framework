@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.44.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.43.0...v0.44.0) (2026-04-13)
+
+
+### Features
+
+* **dependencies:** update Flask dependency version ([352c47f](https://github.com/jbussdieker/bussdcc-framework/commit/352c47fe5d05687cd8f7c98dafe9e8428b8830a3))
+
 ## [0.43.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.42.0...v0.43.0) (2026-04-11)
 
 
