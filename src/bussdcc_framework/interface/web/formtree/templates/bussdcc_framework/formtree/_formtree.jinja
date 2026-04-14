@@ -42,7 +42,7 @@
                {{ field_value_attr(field) }}
                {% if field.meta.min != None %}min="{{ field.meta.min }}"{% endif %}
                {% if field.meta.max != None %}max="{{ field.meta.max }}"{% endif %}
-               {% if field.meta.step != None %}step="{{ field.meta.step }}"{% endif %}
+               {% if field.step != None %}step="{{ field.step }}"{% endif %}
                {% if field.meta.required %}required{% endif %}>
       {% endif %}
       {% if field.error %}

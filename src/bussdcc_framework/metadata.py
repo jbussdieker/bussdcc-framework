@@ -1,6 +1,6 @@
 from dataclasses import Field, dataclass
 from types import MappingProxyType
-from typing import Any
+from typing import Any, Literal
 
 
 @dataclass(slots=True, frozen=True)
@@ -45,7 +45,7 @@ class FieldMetadata:
     help: str | None = None
     min: int | float | None = None
     max: int | float | None = None
-    step: int | float | None = None
+    step: int | float | Literal["any"] | None = None
     ref: FieldRef | None = None
     item_meta: "FieldMetadata | None" = None
     key_meta: "FieldMetadata | None" = None

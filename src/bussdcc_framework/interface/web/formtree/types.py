@@ -89,6 +89,16 @@ class TreeField:
     options: list[FieldOption] | None = None
     error: str | None = None
 
+    @property
+    def step(self) -> int | float | Literal["any"] | None:
+        if self.meta.step is not None:
+            return self.meta.step
+
+        if self.input_type == "number" and _unwrap_optional(self.type) is float:
+            return "any"
+
+        return None
+
     @staticmethod
     def create(
         name: str,
@@ -101,7 +111,7 @@ class TreeField:
         help: str | None = None,
         min: int | float | None = None,
         max: int | float | None = None,
-        step: int | float | None = None,
+        step: int | float | Literal["any"] | None = None,
         ref_options: list[FieldOption] | None = None,
         error: str | None = None,
     ) -> "TreeField":
