@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.45.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.44.0...v0.45.0) (2026-04-14)
+
+
+### Features
+
+* **formtree:** enhance step handling for TreeField ([174cf6e](https://github.com/jbussdieker/bussdcc-framework/commit/174cf6ead414748960068e262102149a89b8c95d))
+
 ## [0.44.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.43.0...v0.44.0) (2026-04-13)
 
 
