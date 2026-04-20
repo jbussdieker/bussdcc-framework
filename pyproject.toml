@@ -4,7 +4,7 @@ dynamic = [
     "version",
 ]
 dependencies = [
-    "bussdcc ~= 0.41.0",
+    "bussdcc ~= 0.42.0",
     "flask ~= 3.1.1",
     "flask-socketio ~= 5.6.1",
 ]
