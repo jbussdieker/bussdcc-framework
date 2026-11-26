@@ -4,6 +4,7 @@ from datetime import date, time, datetime
 from enum import Enum
 from pathlib import Path
 from uuid import UUID
+from zoneinfo import ZoneInfo
 import types
 
 from .base import UNHANDLED
@@ -62,6 +63,13 @@ def load_atomic(tp: Any, value: Any) -> Any:
         if isinstance(value, str):
             return UUID(value)
         raise TypeError(f"{tp} requires UUID string input")
+
+    if tp is ZoneInfo:
+        if isinstance(value, ZoneInfo):
+            return value
+        if isinstance(value, str):
+            return ZoneInfo(value)
+        raise TypeError(f"{tp} requires timezone string input")
 
     if tp is datetime:
         if isinstance(value, datetime):

@@ -4,6 +4,7 @@ from datetime import date, time, datetime
 from enum import Enum
 from pathlib import Path
 from uuid import UUID
+from zoneinfo import ZoneInfo
 
 from .base import UNHANDLED
 
@@ -37,6 +38,11 @@ def dump_value(obj: Any, fallback: DumpFallback | None = None) -> Any:
 
     if isinstance(obj, UUID):
         return str(obj)
+
+    if isinstance(obj, ZoneInfo):
+        if obj.key is None:
+            raise TypeError("ZoneInfo without a key is not serializable")
+        return obj.key
 
     if is_dataclass(obj) and not isinstance(obj, type):
         return {
