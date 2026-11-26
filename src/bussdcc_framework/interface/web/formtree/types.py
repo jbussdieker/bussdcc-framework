@@ -2,8 +2,10 @@ from __future__ import annotations
 from dataclasses import Field, dataclass
 from datetime import date, datetime, time
 from enum import Enum
+from functools import cache
 from types import UnionType
 from typing import Any, Literal, Union, get_args, get_origin
+from zoneinfo import ZoneInfo, available_timezones
 
 from bussdcc_framework.metadata import FieldMetadata
 
@@ -30,6 +32,11 @@ def _enum_type(tp: object) -> type[Enum] | None:
 class FieldOption:
     value: str
     label: str
+
+
+@cache
+def _timezone_keys() -> tuple[str, ...]:
+    return tuple(sorted(available_timezones()))
 
 
 def _field_shape(
@@ -75,6 +82,13 @@ def _field_shape(
 
     if base_tp is datetime:
         return "datetime-local", None, value
+
+    if base_tp is ZoneInfo:
+        return (
+            "select",
+            [FieldOption(value=key, label=key) for key in _timezone_keys()],
+            value.key if isinstance(value, ZoneInfo) else value,
+        )
 
     return "text", None, value
 
