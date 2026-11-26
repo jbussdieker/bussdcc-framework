@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.47.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.46.0...v0.47.0) (2026-11-26)
+
+
+### Features
+
+* **codec:** add support for ZoneInfo serialization and deserialization ([f00c377](https://github.com/jbussdieker/bussdcc-framework/commit/f00c377485765cb488a8a3b887f3e5c8e73930c5))
+
 ## [0.46.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.45.0...v0.46.0) (2026-04-20)
 
 
