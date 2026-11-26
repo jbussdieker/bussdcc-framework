@@ -1,7 +1,7 @@
 from dataclasses import replace
 from typing import Any
 
-from bussdcc_framework.codec import UNHANDLED, load_atomic
+from bussdcc_framework.codec import load_atomic
 
 from .form import coerce_form_value, unwrap_optional
 from .types import (
@@ -51,10 +51,10 @@ def _validate_field_value(field: TreeField, raw_value: Any) -> TreeField:
 
     try:
         coerced = coerce_form_value(field.type, raw_value)
-        result = load_atomic(field.type, coerced)
+        base_type = unwrap_optional(field.type)
 
-        if result is UNHANDLED:
-            return replace(field, value=raw_value, error=None)
+        if coerced is not None or base_type == field.type:
+            load_atomic(base_type, coerced)
 
         return replace(field, value=raw_value, error=None)
     except Exception as e:
