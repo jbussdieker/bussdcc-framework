@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.48.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.47.0...v0.48.0) (2026-11-26)
+
+
+### Features
+
+* **formtree:** add ZoneInfo support for form fields ([21b4fb5](https://github.com/jbussdieker/bussdcc-framework/commit/21b4fb5000d5b314122f11e70ff187b72fd50f1f))
+
 ## [0.47.0](https://github.com/jbussdieker/bussdcc-framework/compare/v0.46.0...v0.47.0) (2026-11-26)
 
 
